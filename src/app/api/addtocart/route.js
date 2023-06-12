@@ -12,6 +12,11 @@ export async function POST(request) {
     cart = await prisma.carts.create({
       data: {
         email: reqBody.user.email,
+        items: [
+          {
+            productId: reqBody.productId,
+          },
+        ],
       },
     });
   } else if (cart) {
@@ -47,7 +52,7 @@ export async function POST(request) {
         },
       });
     } else if (cart) {
-      const cartItems = cart.items.map((product, index) => {
+      const cartItems = cart.items.map((product) => {
         if (product.productId === reqBody.productId) {
           return {
             ...product,
@@ -63,8 +68,7 @@ export async function POST(request) {
           },
         },
       });
-      console.log(cart);
     }
   }
-  return NextResponse.json(reqBody);
+  return NextResponse.json(cart);
 }

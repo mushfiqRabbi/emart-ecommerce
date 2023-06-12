@@ -15,6 +15,8 @@ export default function AddToCartButton({ product }) {
         productId: product.id_,
       }),
     });
+    const data = await res.json();
+    // console.log(data);
   };
   return (
     <button className="btn btn-primary shadow-0 me-1" onClick={handleAddToCart}>
