@@ -9,10 +9,22 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.4.0",
+    "@prisma/client": "^4.15.0",
+    "bcrypt": "^5.1.0",
+    "bootstrap": "^5.3.0",
     "eslint": "8.42.0",
     "eslint-config-next": "13.4.4",
+    "mdb-react-ui-kit": "^6.1.0",
     "next": "13.4.4",
+    "next-auth": "^4.22.1",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-hook-form": "^7.44.3",
+    "swr": "^2.1.5"
+  },
+  "devDependencies": {
+    "@types/node": "20.2.5",
+    "prisma": "^4.15.0"
   }
 }
