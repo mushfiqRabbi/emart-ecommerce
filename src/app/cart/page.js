@@ -1,6 +1,19 @@
 import CartItems from "../../components/CartItems";
+import prisma from "../../../lib/db";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]/route";
 
 export default async function Cart() {
+  const session = await getServerSession(authOptions);
+  // console.log(session.user);
+  const cart = await prisma.carts.findUnique({
+    where: {
+      email: session.user.email,
+    },
+  });
+
+  // console.log(cart.items);
+
   return (
     <>
       {/* Heading */}
@@ -34,7 +47,7 @@ export default async function Cart() {
                     <h4 className="card-title mb-4">Your shopping cart</h4>
                     {/* cart item  */}
 
-                    <CartItems />
+                    <CartItems items={cart?.items}></CartItems>
 
                     {/* cart item  */}
                   </div>

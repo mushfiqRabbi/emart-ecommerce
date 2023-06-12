@@ -1,28 +1,31 @@
+"use client";
+import { useEffect, useState } from "react";
 import CartItem from "../components/CartItem";
-import prisma from "../../lib/db";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../app/api/auth/[...nextauth]/route";
+import { useRouter } from "next/navigation";
 
-export default async function CartItems() {
-  const session = await getServerSession(authOptions);
-  // console.log(session.user);
-  const cart = await prisma.carts.findUnique({
-    where: {
-      email: session.user.email,
-    },
-  });
+export default function CartItems({ items }) {
+  const [cartItems, setCartItems] = useState(items);
+  const router = useRouter();
+  // router.refresh();
+  useEffect(() => {
+    router.refresh();
+  }, [router]);
 
-  if (cart?.items?.length) {
-    return cart.items.map((product) => {
-      return (
-        <CartItem
-          key={product.productId}
-          productId={product.productId}
-          quantity={product.quantity}
-        />
-      );
-    });
-  } else {
-    return <h1>no items</h1>;
+  if (cartItems) {
+    return (
+      <>
+        {cartItems.map((product) => {
+          return (
+            <CartItem
+              key={product.productId}
+              productId={product.productId}
+              quantity={product.quantity}
+              cartItems={cartItems}
+              setCartItems={setCartItems}
+            />
+          );
+        })}
+      </>
+    );
   }
 }
