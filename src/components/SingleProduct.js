@@ -1,10 +1,14 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import AddToCartButton from "../components/AddToCartButton";
+import { useProducts } from "../contexts/ProductsContext";
 
-export default function SingleProduct({ productView, product }) {
+export default function SingleProduct({ product }) {
+  const { gridView } = useProducts();
   // const description = product.description.slice(0, 25);
-  if (productView === "grid") {
+  if (gridView) {
     return (
       <div className="col-lg-4 col-md-6 col-sm-6 d-flex">
         <div className="card w-100 my-2 shadow-2-strong">

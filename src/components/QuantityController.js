@@ -1,38 +1,47 @@
 "use client";
-
-import { useDeferredValue, useRef, useState } from "react";
+import { useCart } from "../contexts/CartContext";
 
 export default function QuantityController({ productId, quantity }) {
-  const quantityRef = useRef(null);
-  const [qt, setQt] = useState(quantity);
-  // console.log(qt);
-  const handleChange = async (e) => {
+  const { increaseQuantity, decreaseQuantity } = useCart();
+  const handleIncrement = (e) => {
     e.preventDefault();
-    setQt(e.target.value);
-    const cart = await fetch("http://localhost:3000/api/updatequantity", {
-      method: "post",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        productId: productId,
-        quantity: quantityRef.current.value,
-      }),
-    });
-    const data = await cart.json();
-    console.log(data);
+    increaseQuantity(productId);
+  };
+  const handleDecrement = (e) => {
+    e.preventDefault();
+    decreaseQuantity(productId);
   };
   return (
     <div className="">
-      <input
-        type="number"
-        name="quantity"
-        min={1}
-        value={qt}
-        className="form-control"
-        onChange={handleChange}
-        ref={quantityRef}
-      />
+      <div className="input-group mb-3" style={{ width: 150 }}>
+        <button
+          className="btn btn-white border border-secondary px-3"
+          type="button"
+          id="button-addon1"
+          data-mdb-ripple-color="dark"
+          onClick={handleDecrement}
+        >
+          <i className="fas fa-minus" />
+        </button>
+        <input
+          type="text"
+          className="form-control text-center border border-secondary"
+          // placeholder={14}
+          value={quantity}
+          aria-label="Example text with button addon"
+          aria-describedby="button-addon1"
+          readOnly
+        />
+        <button
+          className="btn btn-white border border-secondary px-3"
+          type="button"
+          id="button-addon2"
+          data-mdb-ripple-color="dark"
+          onClick={handleIncrement}
+        >
+          <i className="fas fa-plus" />
+        </button>
+      </div>
     </div>
   );
 }

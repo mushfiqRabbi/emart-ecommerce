@@ -1,11 +1,26 @@
-import Link from "next/link";
+"use client";
+import { useProducts } from "../contexts/ProductsContext";
 
-export default function AllProductsHeader({
-  totalProductsNumber,
-  productCategory,
-  pageNumber,
-  productView,
-}) {
+export default function AllProductsHeader() {
+  const {
+    productsCount: totalProductsNumber,
+    category: productCategory,
+    pageNumber,
+    gridView: productView,
+    setGridView,
+  } = useProducts();
+  // console.log(productView);
+  const handleListClick = (e) => {
+    e.preventDefault();
+    setGridView(false);
+  };
+  const handleGridClick = (e) => {
+    e.preventDefault();
+    setGridView(true);
+  };
+  // console.log(productView);
+  const inActive = "btn btn-light";
+  const active = "btn btn-light active";
   return (
     <header className="d-sm-flex align-items-center border-bottom mb-4 pb-3">
       <strong className="d-block py-2">
@@ -19,24 +34,20 @@ export default function AllProductsHeader({
           <option value={3}>Randomly</option>
         </select>
         <div className="btn-group shadow-0 border">
-          <Link
-            href={`/products?category=${productCategory}&page=${pageNumber}&view=list`}
-            className={`btn btn-light ${
-              productView !== "gird" ? null : "active"
-            }`}
-            title="List view"
+          <a
+            className={!productView ? active : inActive}
+            title="List View"
+            onClick={handleListClick}
           >
             <i className="fa fa-bars fa-lg" />
-          </Link>
-          <Link
-            href={`/products?category=${productCategory}&page=${pageNumber}&view=grid`}
-            className={`btn btn-light ${
-              productView === "gird" ? "active" : null
-            }`}
-            title="Grid view"
+          </a>
+          <a
+            className={productView ? active : inActive}
+            title="Grid View"
+            onClick={handleGridClick}
           >
             <i className="fa fa-th fa-lg" />
-          </Link>
+          </a>
         </div>
       </div>
     </header>

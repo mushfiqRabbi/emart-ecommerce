@@ -70,5 +70,5 @@ export async function POST(request) {
       });
     }
   }
-  return NextResponse.json(cart);
+  return NextResponse.json(cart.items);
 }

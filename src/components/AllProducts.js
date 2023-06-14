@@ -1,13 +1,8 @@
+"use client";
 import SingleProduct from "./SingleProduct";
 
-export default function AllProducts({ products, productView }) {
+export default function AllProducts({ products }) {
   return products.map((product) => {
-    return (
-      <SingleProduct
-        key={product.id}
-        product={product}
-        productView={productView}
-      />
-    );
+    return <SingleProduct key={product.id} product={product} />;
   });
 }

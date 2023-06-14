@@ -6,6 +6,7 @@ import Script from "next/script";
 import RootLayoutHeader from "../components/RootLayoutHeader";
 import Footer from "../components/Footer";
 import AuthProvider from "../components/AuthProvider";
+import AllContext from "../contexts/AllContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,8 +21,10 @@ export default function RootLayout({ children }) {
       <body className={inter.className} suppressHydrationWarning={true}>
         <AuthProvider>
           <RootLayoutHeader />
-          {children}
-          <Footer />
+          <AllContext>
+            {children}
+            <Footer />
+          </AllContext>
         </AuthProvider>
         <Script
           defer

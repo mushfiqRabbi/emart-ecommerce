@@ -4,26 +4,12 @@ import CartItem from "../components/CartItem";
 import { useRouter } from "next/navigation";
 
 export default function CartItems({ items }) {
-  const [cartItems, setCartItems] = useState(items);
-  const router = useRouter();
   // router.refresh();
-  useEffect(() => {
-    router.refresh();
-  }, [router]);
-
-  if (cartItems) {
+  if (items.length > 0) {
     return (
       <>
-        {cartItems.map((product) => {
-          return (
-            <CartItem
-              key={product.productId}
-              productId={product.productId}
-              quantity={product.quantity}
-              cartItems={cartItems}
-              setCartItems={setCartItems}
-            />
-          );
+        {items.map((item, index) => {
+          return <CartItem key={index} item={item} />;
         })}
       </>
     );

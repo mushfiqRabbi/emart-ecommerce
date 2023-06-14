@@ -1,6 +1,15 @@
-import Link from "next/link";
+"use client";
 
-export default function AllProductsSidebar({ categories, productView }) {
+import Link from "next/link";
+import { useProducts } from "../contexts/ProductsContext";
+
+export default function AllProductsSidebar() {
+  const { categories, setCategory } = useProducts();
+  const handleClick = (e) => {
+    e.preventDefault();
+    // console.dir(e.target.textContent.toLowerCase());
+    setCategory(e.target.textContent.toLowerCase());
+  };
   return (
     <div className="col-lg-3">
       {/* Toggle button */}
@@ -41,24 +50,18 @@ export default function AllProductsSidebar({ categories, productView }) {
             >
               <div className="accordion-body">
                 <ul className="list-unstyled">
-                  <li className="">
-                    <Link
-                      href={`/products?category=all products&view=${productView}`}
-                      className="text-dark"
-                    >
-                      All products
-                    </Link>
-                  </li>
                   {categories.map((category, index) => {
                     return (
                       <li key={index} className="">
-                        <Link
-                          href={`/products?category=${category.category}&view=${productView}`}
+                        <a
                           className="text-dark"
+                          onClick={handleClick}
+                          style={{
+                            cursor: "pointer",
+                          }}
                         >
-                          {category.category[0].toUpperCase() +
-                            category.category.slice(1)}
-                        </Link>
+                          {category[0].toUpperCase() + category.slice(1)}
+                        </a>
                       </li>
                     );
                   })}
