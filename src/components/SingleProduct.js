@@ -4,10 +4,20 @@ import Image from "next/image";
 import Link from "next/link";
 import AddToCartButton from "../components/AddToCartButton";
 import { useProducts } from "../contexts/ProductsContext";
+import { useCart } from "../contexts/CartContext";
+import { useRouter } from "next/navigation";
 
 export default function SingleProduct({ product }) {
   const { gridView } = useProducts();
+  const { addToCart } = useCart();
+  const router = useRouter();
   // const description = product.description.slice(0, 25);
+
+  const handleBuyThis = (e) => {
+    e.preventDefault();
+    addToCart(product.id_);
+    router.push("/cart");
+  };
   if (gridView) {
     return (
       <div className="col-lg-4 col-md-6 col-sm-6 d-flex">
@@ -70,7 +80,7 @@ export default function SingleProduct({ product }) {
                       alt={product.title}
                       className="h-full w-full"
                     />
-                    <a href="#!">
+                    <Link href={`/products/${product.id_}`}>
                       <div className="hover-overlay">
                         <div
                           className="mask"
@@ -79,21 +89,28 @@ export default function SingleProduct({ product }) {
                           }}
                         />
                       </div>
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className="col-xl-6 col-md-5 col-sm-7">
                   <h5>{product.title}</h5>
                   <div className="d-flex flex-row">
                     <div className="text-warning mb-1 me-2">
+                      {[...Array(Math.floor(product.rating.toFixed(1)))].map(
+                        (e, i) => {
+                          return <i className="fa fa-star" key={i} />;
+                        }
+                      )}
+                      {/* <i className="fa fa-star" />
                       <i className="fa fa-star" />
                       <i className="fa fa-star" />
-                      <i className="fa fa-star" />
-                      <i className="fa fa-star" />
-                      <i className="fas fa-star-half-alt" />
+                      <i className="fa fa-star" /> */}
+                      {product.rating.toFixed(1) -
+                        Math.round(product.rating).toFixed(1) !==
+                        0 && <i className="fas fa-star-half-alt" />}
                       <span className="ms-1">{product.rating.toFixed(1)}</span>
                     </div>
-                    <span className="text-muted">154 orders</span>
+                    {/* <span className="text-muted">154 orders</span> */}
                   </div>
                   <p className="text mb-4 mb-md-0">{product.description}</p>
                 </div>
@@ -110,9 +127,15 @@ export default function SingleProduct({ product }) {
                       <s>${product.price}</s>
                     </span>
                   </div>
-                  <h6 className="text-success">Free shipping</h6>
+                  {Math.round(Math.random() * 100) % 3 === 0 && (
+                    <h6 className="text-success">Free shipping</h6>
+                  )}
                   <div className="mt-4">
-                    <button className="btn btn-primary shadow-0" type="button">
+                    <button
+                      className="btn btn-primary shadow-0 me-1"
+                      type="button"
+                      onClick={handleBuyThis}
+                    >
                       Buy this
                     </button>
                     <a

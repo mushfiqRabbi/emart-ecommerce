@@ -56,7 +56,7 @@ export default function ProductsLayoutSidebar() {
                   </li>
                   <li>
                     <a href="#" className="text-dark">
-                      Men's clothing{" "}
+                      {`Men's clothing`}{" "}
                     </a>
                   </li>
                   <li>

@@ -10,12 +10,23 @@ export async function GET(request) {
       category: "asc",
     },
   });
+  const brands = await prisma.products.groupBy({
+    by: ["brand"],
+    orderBy: {
+      brand: "asc",
+    },
+    _count: true,
+  });
+  // console.log(brands.length);
   const categoriesCount = categories.length;
+  const brandsCount = brands.length;
   // console.log(categoriesCount);
   return NextResponse.json({
     products,
     productsCount,
     categories,
     categoriesCount,
+    brands,
+    brandsCount,
   });
 }

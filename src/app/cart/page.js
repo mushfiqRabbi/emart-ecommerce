@@ -1,13 +1,32 @@
 "use client";
 import CartItems from "../../components/CartItems";
 import { useCart } from "../../contexts/CartContext";
+import { useRouter } from "next/navigation";
+// import { loadStripe } from "@stripe/stripe-js";
+
 // import prisma from "../../../lib/db";
 // import { getServerSession } from "next-auth";
 // import { authOptions } from "../api/auth/[...nextauth]/route";
 
+// const stripePromise = loadStripe(
+//   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+// );
+
 export default function Cart() {
   const { cartLoading, cart, getCartTotalPrice, getCartTotalDiscount } =
     useCart();
+
+  const router = useRouter();
+
+  const handlePurchase = async (e) => {
+    e.preventDefault();
+    const res = await fetch("http://localhost:3000/api/checkout_sessions", {
+      method: "post",
+    });
+    const url = (await res.json()).url;
+    // console.log(url);
+    router.push(url);
+  };
 
   if (cartLoading) {
     return <p>loading</p>;
@@ -111,13 +130,13 @@ export default function Cart() {
                         </p>
                       </div>
                       <div className="mt-3">
-                        <a
-                          href="#"
+                        <button
                           className="btn btn-success w-100 shadow-0 mb-2"
+                          onClick={handlePurchase}
                         >
                           {" "}
                           Make Purchase{" "}
-                        </a>
+                        </button>
                         <a href="#" className="btn btn-light w-100 border mt-2">
                           {" "}
                           Back to shop{" "}
@@ -216,7 +235,7 @@ export default function Cart() {
                     </a>
                     <div className="card-body d-flex flex-column pt-3 border-top">
                       <a href="#" className="nav-link">
-                        Men's Denim Jeans Shorts
+                        {`Men's Denim Jeans Shorts`}
                       </a>
                       <div className="price-wrap mb-2">
                         <strong className="">$80.50</strong>

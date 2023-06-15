@@ -23,7 +23,7 @@ export default function FeatureSectionOne() {
                   <h3 className="text-dark">
                     Best products &amp; brands in our store at 80% off
                   </h3>
-                  <p>That's true but not always</p>
+                  <p>{`That's true but not always`}</p>
                   <button className="btn btn-warning shadow-0" href="#">
                     {" "}
                     Claim offer{" "}

@@ -17,16 +17,29 @@ export default function ProductsProvider({ children }) {
   const [category, setCategory] = useState("all");
   const [pageNumber, setPageNumber] = useState(1);
   const [gridView, setGridView] = useState(true);
+  const [brands, setBrands] = useState([]);
+  const [brandsCount, setBrandsCount] = useState(0);
+  const [brand, setBrand] = useState([]);
 
   const productsVisible = useRef([]);
 
   if (!productsLoading) {
-    productsVisible.current =
-      category === "all"
-        ? products.slice(pageNumber * 12 - 12, pageNumber * 12)
-        : products
-            .filter((product) => product.category === category)
-            .slice(pageNumber * 12 - 12, pageNumber * 12);
+    productsVisible.current = products
+      .filter((p) => {
+        if (category === "all") {
+          return p;
+        } else if (category === p.category) {
+          return p;
+        }
+      })
+      .filter((p1) => {
+        if (brand.length === 0) {
+          return p1;
+        } else if (brand.includes(p1.brand)) {
+          return p1;
+        }
+      })
+      .slice((pageNumber - 1) * 12, pageNumber * 12);
 
     // console.log(productsVisible.current);
   }
@@ -39,7 +52,6 @@ export default function ProductsProvider({ children }) {
       setProducts([...data.products]);
       setProductsCount(data.productsCount);
       data.categories.unshift("all");
-      // console.log();
       setCategories([
         ...data.categories.map((cat) => {
           if (cat === "all") {
@@ -50,6 +62,8 @@ export default function ProductsProvider({ children }) {
         }),
       ]);
       setCategoriesCount(data.categoriesCount);
+      setBrands([...data.brands]);
+      setBrandsCount(data.brandsCount);
       setProductsLoading(false);
       // console.log(data.productsCount);
     })();
@@ -70,6 +84,12 @@ export default function ProductsProvider({ children }) {
         gridView,
         setGridView,
         productsVisible,
+        brands,
+        setBrands,
+        brandsCount,
+        setBrandsCount,
+        brand,
+        setBrand,
       }}
     >
       {children}

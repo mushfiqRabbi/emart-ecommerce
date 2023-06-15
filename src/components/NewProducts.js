@@ -95,7 +95,7 @@ export default function NewProducts() {
                 />
                 <div className="card-body d-flex flex-column">
                   <h5 className="card-title">
-                    Apple iPhone 12 Pro 6.1" RAM 6GB 512GB Unlocked
+                    {`Apple iPhone 12 Pro 6.1" RAM 6GB 512GB Unlocked`}
                   </h5>
                   <p className="card-text">$120.00</p>
                   <div className="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">

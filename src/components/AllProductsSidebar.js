@@ -3,11 +3,40 @@
 import Link from "next/link";
 import { useProducts } from "../contexts/ProductsContext";
 
+const cf = [];
+
 export default function AllProductsSidebar() {
-  const { categories, setCategory } = useProducts();
+  const {
+    categories,
+    setCategory,
+    brands,
+    productsCount,
+    brand,
+    setBrand,
+    productsVisible,
+    category,
+    products,
+  } = useProducts();
+
+  const handleCheck = (e) => {
+    // e.preventDefault();
+    // console.log(e.target.checked);
+    // console.log(cf);
+    if (e.target.checked) {
+      cf.push(e.target);
+      brand.push(e.target.value);
+      setBrand([...brand]);
+      return;
+    }
+    cf.pop(e.target);
+    brand.pop(e.target.value);
+    setBrand([...brand]);
+  };
   const handleClick = (e) => {
     e.preventDefault();
     // console.dir(e.target.textContent.toLowerCase());
+    cf.forEach((box) => (box.checked = false));
+    setBrand([]);
     setCategory(e.target.textContent.toLowerCase());
   };
   return (
@@ -50,17 +79,21 @@ export default function AllProductsSidebar() {
             >
               <div className="accordion-body">
                 <ul className="list-unstyled">
-                  {categories.map((category, index) => {
+                  {categories.map((ct, index) => {
                     return (
-                      <li key={index} className="">
+                      <li key={index} className="row">
                         <a
-                          className="text-dark"
+                          className={`${
+                            ct === category
+                              ? "bg-primary text-white"
+                              : "text-dark"
+                          }`}
                           onClick={handleClick}
                           style={{
                             cursor: "pointer",
                           }}
                         >
-                          {category[0].toUpperCase() + category.slice(1)}
+                          {ct[0].toUpperCase() + ct.slice(1)}
                         </a>
                       </li>
                     );
@@ -76,7 +109,7 @@ export default function AllProductsSidebar() {
                 type="button"
                 data-mdb-toggle="collapse"
                 data-mdb-target="#panelsStayOpen-collapseTwo"
-                aria-expanded="true"
+                aria-expanded="false"
                 aria-controls="panelsStayOpen-collapseTwo"
               >
                 Brands
@@ -84,111 +117,84 @@ export default function AllProductsSidebar() {
             </h2>
             <div
               id="panelsStayOpen-collapseTwo"
-              className="accordion-collapse collapse show"
+              className="accordion-collapse collapse"
               aria-labelledby="headingTwo"
             >
               <div className="accordion-body">
                 <div>
                   {/* Checked checkbox */}
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      defaultValue=""
-                      id="flexCheckChecked1"
-                      defaultChecked=""
-                    />
-                    <label
-                      className="form-check-label"
-                      htmlFor="flexCheckChecked1"
-                    >
-                      Mercedes
-                    </label>
-                    <span className="badge badge-secondary float-end">120</span>
-                  </div>
+                  {category !== "all" &&
+                    Array.from(
+                      new Set(
+                        products
+                          .filter((p) => p.category === category)
+                          .map((p) => p.brand)
+                      )
+                    ).map((brand, index) => {
+                      return (
+                        <div
+                          className="form-check d-flex flex-col align-items-center justify-content-between"
+                          key={index}
+                        >
+                          <div>
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                              id={brand}
+                              defaultChecked=""
+                              onChange={handleCheck}
+                              value={brand}
+                            />
+                            <label className="form-check-label" htmlFor={brand}>
+                              {brand}
+                            </label>
+                          </div>
+                          <span className="badge badge-secondary float-end">
+                            {
+                              Array.from(
+                                new Set(
+                                  products.filter(
+                                    (p) =>
+                                      p.brand === brand &&
+                                      p.category === category
+                                  )
+                                )
+                              ).length
+                            }
+                          </span>
+                        </div>
+                      );
+                    })}
+                  {category === "all" &&
+                    brands.map((brand, index) => {
+                      return (
+                        <div
+                          className="form-check d-flex flex-col align-items-center justify-content-between"
+                          key={index}
+                        >
+                          <div>
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                              id={brand.brand}
+                              defaultChecked=""
+                              onChange={handleCheck}
+                              value={brand.brand}
+                            />
+                            <label
+                              className="form-check-label"
+                              htmlFor={brand.brand}
+                            >
+                              {brand.brand}
+                            </label>
+                          </div>
+                          <span className="badge badge-secondary float-end">
+                            {brand?._count}
+                          </span>
+                        </div>
+                      );
+                    })}
                   {/* Checked checkbox */}
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      defaultValue=""
-                      id="flexCheckChecked2"
-                      defaultChecked=""
-                    />
-                    <label
-                      className="form-check-label"
-                      htmlFor="flexCheckChecked2"
-                    >
-                      Toyota
-                    </label>
-                    <span className="badge badge-secondary float-end">15</span>
-                  </div>
-                  {/* Checked checkbox */}
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      defaultValue=""
-                      id="flexCheckChecked3"
-                      defaultChecked=""
-                    />
-                    <label
-                      className="form-check-label"
-                      htmlFor="flexCheckChecked3"
-                    >
-                      Mitsubishi
-                    </label>
-                    <span className="badge badge-secondary float-end">35</span>
-                  </div>
-                  {/* Checked checkbox */}
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      defaultValue=""
-                      id="flexCheckChecked4"
-                      defaultChecked=""
-                    />
-                    <label
-                      className="form-check-label"
-                      htmlFor="flexCheckChecked4"
-                    >
-                      Nissan
-                    </label>
-                    <span className="badge badge-secondary float-end">89</span>
-                  </div>
-                  {/* Default checkbox */}
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      defaultValue=""
-                      id="flexCheckDefault"
-                    />
-                    <label
-                      className="form-check-label"
-                      htmlFor="flexCheckDefault"
-                    >
-                      Honda
-                    </label>
-                    <span className="badge badge-secondary float-end">30</span>
-                  </div>
-                  {/* Default checkbox */}
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      defaultValue=""
-                      id="flexCheckDefault"
-                    />
-                    <label
-                      className="form-check-label"
-                      htmlFor="flexCheckDefault"
-                    >
-                      Suzuki
-                    </label>
-                    <span className="badge badge-secondary float-end">30</span>
-                  </div>
                 </div>
               </div>
             </div>
@@ -262,84 +268,6 @@ export default function AllProductsSidebar() {
                 className="accordion-button text-dark bg-light"
                 type="button"
                 data-mdb-toggle="collapse"
-                data-mdb-target="#panelsStayOpen-collapseFour"
-                aria-expanded="false"
-                aria-controls="panelsStayOpen-collapseFour"
-              >
-                Size
-              </button>
-            </h2>
-            <div
-              id="panelsStayOpen-collapseFour"
-              className="accordion-collapse collapse show"
-              aria-labelledby="headingThree"
-            >
-              <div className="accordion-body">
-                <input
-                  type="checkbox"
-                  className="btn-check border justify-content-center"
-                  id="btn-check1"
-                  defaultChecked=""
-                  autoComplete="off"
-                />
-                <label
-                  className="btn btn-white mb-1 px-1"
-                  style={{ width: 60 }}
-                  htmlFor="btn-check1"
-                >
-                  XS
-                </label>
-                <input
-                  type="checkbox"
-                  className="btn-check border justify-content-center"
-                  id="btn-check2"
-                  defaultChecked=""
-                  autoComplete="off"
-                />
-                <label
-                  className="btn btn-white mb-1 px-1"
-                  style={{ width: 60 }}
-                  htmlFor="btn-check2"
-                >
-                  SM
-                </label>
-                <input
-                  type="checkbox"
-                  className="btn-check border justify-content-center"
-                  id="btn-check3"
-                  defaultChecked=""
-                  autoComplete="off"
-                />
-                <label
-                  className="btn btn-white mb-1 px-1"
-                  style={{ width: 60 }}
-                  htmlFor="btn-check3"
-                >
-                  LG
-                </label>
-                <input
-                  type="checkbox"
-                  className="btn-check border justify-content-center"
-                  id="btn-check4"
-                  defaultChecked=""
-                  autoComplete="off"
-                />
-                <label
-                  className="btn btn-white mb-1 px-1"
-                  style={{ width: 60 }}
-                  htmlFor="btn-check4"
-                >
-                  XXL
-                </label>
-              </div>
-            </div>
-          </div>
-          <div className="accordion-item">
-            <h2 className="accordion-header" id="headingThree">
-              <button
-                className="accordion-button text-dark bg-light"
-                type="button"
-                data-mdb-toggle="collapse"
                 data-mdb-target="#panelsStayOpen-collapseFive"
                 aria-expanded="false"
                 aria-controls="panelsStayOpen-collapseFive"
@@ -359,13 +287,10 @@ export default function AllProductsSidebar() {
                     className="form-check-input"
                     type="checkbox"
                     defaultValue=""
-                    id="flexCheckDefault"
+                    id="five-star"
                     defaultChecked=""
                   />
-                  <label
-                    className="form-check-label"
-                    htmlFor="flexCheckDefault"
-                  >
+                  <label className="form-check-label" htmlFor="five-star">
                     <i className="fas fa-star text-warning" />
                     <i className="fas fa-star text-warning" />
                     <i className="fas fa-star text-warning" />
@@ -379,13 +304,10 @@ export default function AllProductsSidebar() {
                     className="form-check-input"
                     type="checkbox"
                     defaultValue=""
-                    id="flexCheckDefault"
+                    id="four-star"
                     defaultChecked=""
                   />
-                  <label
-                    className="form-check-label"
-                    htmlFor="flexCheckDefault"
-                  >
+                  <label className="form-check-label" htmlFor="four-star">
                     <i className="fas fa-star text-warning" />
                     <i className="fas fa-star text-warning" />
                     <i className="fas fa-star text-warning" />
@@ -399,13 +321,10 @@ export default function AllProductsSidebar() {
                     className="form-check-input"
                     type="checkbox"
                     defaultValue=""
-                    id="flexCheckDefault"
+                    id="three-star"
                     defaultChecked=""
                   />
-                  <label
-                    className="form-check-label"
-                    htmlFor="flexCheckDefault"
-                  >
+                  <label className="form-check-label" htmlFor="three-star">
                     <i className="fas fa-star text-warning" />
                     <i className="fas fa-star text-warning" />
                     <i className="fas fa-star text-warning" />
@@ -419,15 +338,28 @@ export default function AllProductsSidebar() {
                     className="form-check-input"
                     type="checkbox"
                     defaultValue=""
-                    id="flexCheckDefault"
+                    id="two-star"
                     defaultChecked=""
                   />
-                  <label
-                    className="form-check-label"
-                    htmlFor="flexCheckDefault"
-                  >
+                  <label className="form-check-label" htmlFor="two-star">
                     <i className="fas fa-star text-warning" />
                     <i className="fas fa-star text-warning" />
+                    <i className="fas fa-star text-secondary" />
+                    <i className="fas fa-star text-secondary" />
+                    <i className="fas fa-star text-secondary" />
+                  </label>
+                </div>
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    defaultValue=""
+                    id="one-start"
+                    defaultChecked=""
+                  />
+                  <label className="form-check-label" htmlFor="one-start">
+                    <i className="fas fa-star text-warning" />
+                    <i className="fas fa-star text-secondary" />
                     <i className="fas fa-star text-secondary" />
                     <i className="fas fa-star text-secondary" />
                     <i className="fas fa-star text-secondary" />

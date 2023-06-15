@@ -2,13 +2,17 @@
 import { useCart } from "../contexts/CartContext";
 
 export default function QuantityController({ productId, quantity }) {
-  const { increaseQuantity, decreaseQuantity } = useCart();
+  const { increaseQuantity, decreaseQuantity, removeFromCart } = useCart();
   const handleIncrement = (e) => {
     e.preventDefault();
     increaseQuantity(productId);
   };
   const handleDecrement = (e) => {
     e.preventDefault();
+    if (quantity <= 1) {
+      // removeFromCart(productId);
+      return;
+    }
     decreaseQuantity(productId);
   };
   return (

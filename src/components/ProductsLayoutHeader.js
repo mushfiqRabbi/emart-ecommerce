@@ -2,7 +2,7 @@ export default function ProductsLayoutHeader() {
   return (
     <div className="bg-primary mb-4">
       <div className="container py-4">
-        <h3 className="text-white mt-2">Men's wear</h3>
+        <h3 className="text-white mt-2">{`Men's wear`}</h3>
         {/* Breadcrumb */}
         <nav className="d-flex mb-2">
           <h6 className="mb-0">

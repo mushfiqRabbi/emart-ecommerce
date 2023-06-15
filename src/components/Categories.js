@@ -146,7 +146,7 @@ export default function Categories() {
                     >
                       <i className="fas fa-baby-carriage fa-xl fa-fw" />
                     </button>
-                    <div className="text-dark">Kid's toys</div>
+                    <div className="text-dark">{`Kid's toys`}</div>
                   </a>
                 </div>
                 <div className="col-3">
@@ -176,7 +176,7 @@ export default function Categories() {
                     >
                       <i className="fas fa-tshirt fa-xl fa-fw" />
                     </button>
-                    <div className="text-dark">Men's clothing</div>
+                    <div className="text-dark">{`Men's clothing`}</div>
                   </a>
                 </div>
                 <div className="col-3">
@@ -191,7 +191,7 @@ export default function Categories() {
                     >
                       <i className="fas fa-shoe-prints fa-xl fa-fw" />
                     </button>
-                    <div className="text-dark">Men's clothing</div>
+                    <div className="text-dark">{`Men's clothing`}</div>
                   </a>
                 </div>
               </div>

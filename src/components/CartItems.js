@@ -9,7 +9,7 @@ export default function CartItems({ items }) {
     return (
       <>
         {items.map((item, index) => {
-          return <CartItem key={index} item={item} />;
+          return <CartItem key={item.productId} item={item} />;
         })}
       </>
     );
