@@ -1,6 +1,7 @@
 "use client";
 import { useForm } from "react-hook-form";
 import { registerUser } from "../app/actions";
+import { MDBInput } from "mdb-react-ui-kit";
 
 export default function SignUpForm({ tab, setTab }) {
   const {
@@ -49,51 +50,55 @@ export default function SignUpForm({ tab, setTab }) {
         <p className="text-center">or:</p>
         {/* Name input */}
         <div className="form-outline mb-4">
-          <input
+          <MDBInput
             type="text"
             id="registerName"
-            className="form-control"
+            // className="form-control"
+            label="Name"
             {...register("name", { required: true })}
           />
-          <label className="form-label" htmlFor="registerName">
+          {/* <label className="form-label" htmlFor="registerName">
             Name
-          </label>
+          </label> */}
         </div>
         {/* Email input */}
         <div className="form-outline mb-4">
-          <input
+          <MDBInput
             type="email"
             id="registerEmail"
-            className="form-control"
+            // className="form-control"
+            label="Email"
             {...register("email", { required: true })}
           />
-          <label className="form-label" htmlFor="registerEmail">
+          {/* <label className="form-label" htmlFor="registerEmail">
             Email
-          </label>
+          </label> */}
         </div>
         {/* Password input */}
         <div className="form-outline mb-4">
-          <input
+          <MDBInput
             type="password"
             id="registerPassword"
-            className="form-control"
+            // className="form-control"
+            label="Password"
             {...register("password", { required: true })}
           />
-          <label className="form-label" htmlFor="registerPassword">
+          {/* <label className="form-label" htmlFor="registerPassword">
             Password
-          </label>
+          </label> */}
         </div>
         {/* Repeat Password input */}
         <div className="form-outline mb-4">
-          <input
+          <MDBInput
             type="password"
             id="registerRepeatPassword"
-            className="form-control"
+            // className="form-control"
+            label="Repeat Password"
             {...register("repeatPassword", { required: true })}
           />
-          <label className="form-label" htmlFor="registerRepeatPassword">
+          {/* <label className="form-label" htmlFor="registerRepeatPassword">
             Repeat password
-          </label>
+          </label> */}
         </div>
         {/* Checkbox */}
         <div className="form-check d-flex justify-content-center mb-4">

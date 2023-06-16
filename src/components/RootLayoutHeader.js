@@ -1,11 +1,27 @@
 "use client";
+import Search from "./Search";
+import Hits from "./Hits";
+
+import { useRef } from "react";
+import { useState } from "react";
+
+import algoliasearch from "algoliasearch/lite";
+import { InstantSearch } from "react-instantsearch-hooks-web";
+
+const searchClient = algoliasearch(
+  "2VLVGEQHRD",
+  "6aa570869070b2fe7fe55409f6ddfcce"
+);
 
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import SignOutButton from "../components/SignOutButton";
+import { createPortal } from "react-dom";
 
 export default function RootLayoutHeader() {
+  const hitsContainer = useRef(null);
   const { data: session, status } = useSession();
+  const [search, setSearch] = useState("");
   return (
     <header>
       {/* Jumbotron */}
@@ -15,7 +31,7 @@ export default function RootLayoutHeader() {
             {/* Left elements */}
             <div className="col-lg-2 col-sm-4 col-4">
               <Link href="/" className="float-start">
-                <p className="fs-2 fw-bold">MShop</p>
+                <p className="fs-2 fw-bold">eMart</p>
               </Link>
             </div>
             {/* Left elements */}
@@ -54,19 +70,20 @@ export default function RootLayoutHeader() {
             </div>
             {/* Center elements */}
             {/* Right elements */}
-            <div className="col-lg-5 col-md-12 col-12">
-              <div className="input-group float-center">
-                <div className="form-outline">
-                  <input type="search" id="form1" className="form-control" />
-                  <label className="form-label" htmlFor="form1">
-                    Search
-                  </label>
-                </div>
-                <button type="button" className="btn btn-primary shadow-0">
-                  <i className="fas fa-search" />
-                </button>
-              </div>
-            </div>
+            <InstantSearch searchClient={searchClient} indexName="emart">
+              <Search
+                ref={hitsContainer}
+                search={search}
+                setSearch={setSearch}
+              />
+              {search &&
+                hitsContainer?.current &&
+                createPortal(
+                  <Hits setSearch={setSearch} />,
+                  hitsContainer.current
+                )}
+              {/* <Hits /> */}
+            </InstantSearch>
             {/* Right elements */}
           </div>
         </div>

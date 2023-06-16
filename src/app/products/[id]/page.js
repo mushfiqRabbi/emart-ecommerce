@@ -7,15 +7,15 @@ import Link from "next/link";
 import { useProducts } from "../../../contexts/ProductsContext";
 
 export default function Product({ params }) {
-  const { loading, products } = useProducts();
+  const { productsLoading, products } = useProducts();
 
-  if (loading) {
+  if (productsLoading) {
     return <p>loading</p>;
   } else {
-    const product = products.find((p) => p.id_ === Number(params.id));
+    const product = products?.find((p) => p.id_ === Number(params.id));
     // console.log(products);
-    const similarProducts = products.filter(
-      (p) => p.category === product.category
+    const similarProducts = products?.filter(
+      (p) => p?.category === product?.category
     );
     return (
       <>
@@ -34,8 +34,8 @@ export default function Product({ params }) {
                   Products
                 </Link>
                 <span className="text-white-50 mx-2"> &gt; </span>
-                <Link href={`/products/${product.id_}`} className="text-white">
-                  <u>{product.title}</u>
+                <Link href={`/products/${product?.id_}`} className="text-white">
+                  <u>{product?.title}</u>
                 </Link>
               </h6>
             </nav>
@@ -57,17 +57,17 @@ export default function Product({ params }) {
                       href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/detail1/big.webp"
                     >
                       <Image
-                        alt={product.title + " image"}
+                        alt={product?.title + " image"}
                         style={{ width: "100%", height: "500px" }}
                         width={500}
                         height={500}
                         className="rounded-4 fit"
-                        src={product.thumbnail}
+                        src={product?.thumbnail}
                       />
                     </a>
                   </div>
                   <div className="d-flex justify-content-center mb-3">
-                    {product.images.map((img, index) => {
+                    {product?.images?.map((img, index) => {
                       return <SecondaryImages key={index} img={img} />;
                     })}
                   </div>
@@ -76,9 +76,14 @@ export default function Product({ params }) {
                 </aside>
                 <main className="col-lg-6">
                   <div className="ps-lg-3">
-                    <h4 className="title text-dark">
-                      {`Quality Men's Hoodie for Winter, Men's Fashion <br />
-                    Casual Hoodie`}
+                    <h4
+                      className="title text-dark"
+                      style={{
+                        fontSize: "28px",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {product.title}
                     </h4>
                     <div className="d-flex flex-row my-3">
                       <div className="text-warning mb-1 me-2">
@@ -88,7 +93,7 @@ export default function Product({ params }) {
                         <i className="fa fa-star" />
                         <i className="fas fa-star-half-alt" />
                         <span className="ms-1">
-                          {product.rating.toFixed(1)}
+                          {product?.rating?.toFixed(1)}
                         </span>
                       </div>
                       <span className="text-muted">
@@ -101,20 +106,20 @@ export default function Product({ params }) {
                       <span className="h5">
                         $
                         {(
-                          product.price -
-                          product.price * (product.discountPercentage / 100)
+                          product?.price -
+                          product?.price * (product?.discountPercentage / 100)
                         ).toFixed(2)}
                       </span>
                       <span className="text-muted">/per box</span>
                     </div>
-                    <p>{product.description}</p>
+                    <p>{product?.description}</p>
                     <div className="row">
                       <dt className="col-3">Category:</dt>
-                      <dd className="col-9">{product.category}</dd>
+                      <dd className="col-9">{product?.category}</dd>
                       <dt className="col-3">Brand</dt>
-                      <dd className="col-9">{product.brand}</dd>
+                      <dd className="col-9">{product?.brand}</dd>
                       <dt className="col-3">Model</dt>
-                      <dd className="col-9">{product.title}</dd>
+                      <dd className="col-9">{product?.title}</dd>
                     </div>
                     <hr />
                     <div className="row mb-4">

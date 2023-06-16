@@ -2,6 +2,7 @@
 import { useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { MDBInput } from "mdb-react-ui-kit";
 
 export default function SignInForm({ tab, setTab }) {
   const router = useRouter();
@@ -50,27 +51,29 @@ export default function SignInForm({ tab, setTab }) {
         <p className="text-center">or:</p>
         {/* Email input */}
         <div className="form-outline mb-4">
-          <input
+          <MDBInput
             type="email"
             id="loginName"
-            className="form-control"
+            // className="form-control"
+            label="Email or username"
             {...register("email", { required: true })}
           />
-          <label className="form-label" htmlFor="loginName">
+          {/* <label className="form-label" htmlFor="loginName">
             Email or username
-          </label>
+          </label> */}
         </div>
         {/* Password input */}
         <div className="form-outline mb-4">
-          <input
+          <MDBInput
             type="password"
             id="loginPassword"
-            className="form-control"
+            // className="form-control"
+            label="Password"
             {...register("password", { required: true })}
           />
-          <label className="form-label" htmlFor="loginPassword">
+          {/* <label className="form-label" htmlFor="loginPassword">
             Password
-          </label>
+          </label> */}
         </div>
         {/* 2 column grid layout */}
         <div className="row mb-4">
