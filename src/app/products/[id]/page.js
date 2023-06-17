@@ -5,9 +5,41 @@ import Image from "next/image";
 import SecondaryImages from "../../../components/SecondaryImages";
 import Link from "next/link";
 import { useProducts } from "../../../contexts/ProductsContext";
+import { useState } from "react";
+import { useCart } from "../../../contexts/CartContext";
+import { useRouter } from "next/navigation";
 
 export default function Product({ params }) {
   const { productsLoading, products } = useProducts();
+  const { addToCart } = useCart();
+  const [qt, setQt] = useState(1);
+  const router = useRouter();
+
+  const handleIncrement = (e) => {
+    e.preventDefault();
+    setQt((q) => (q = q + 1));
+  };
+  const handleDecrement = (e) => {
+    e.preventDefault();
+
+    setQt((q) => {
+      if (q <= 1) {
+        return 1;
+      } else return q - 1;
+    });
+  };
+
+  const handleAddToCart = (e) => {
+    e.preventDefault();
+    addToCart(Number(params.id), qt);
+
+    // console.log(Nuparams.id);
+  };
+  const handleBuy = (e) => {
+    e.preventDefault();
+    addToCart(Number(params.id), qt);
+    router.push("cart");
+  };
 
   if (productsLoading) {
     return <p>loading</p>;
@@ -23,7 +55,7 @@ export default function Product({ params }) {
         <div className="bg-primary">
           <div className="container py-4">
             {/* Breadcrumb */}
-            <nav className="d-flex">
+            {/* <nav className="d-flex">
               <h6 className="mb-0">
                 <Link href="/" className="text-white-50">
                   Home
@@ -38,7 +70,7 @@ export default function Product({ params }) {
                   <u>{product?.title}</u>
                 </Link>
               </h6>
-            </nav>
+            </nav> */}
             {/* Breadcrumb */}
           </div>
         </div>
@@ -135,35 +167,44 @@ export default function Product({ params }) {
                             type="button"
                             id="button-addon1"
                             data-mdb-ripple-color="dark"
+                            onClick={handleDecrement}
                           >
                             <i className="fas fa-minus" />
                           </button>
                           <input
                             type="text"
                             className="form-control text-center border border-secondary"
-                            placeholder={14}
+                            value={qt}
                             aria-label="Example text with button addon"
                             aria-describedby="button-addon1"
+                            readOnly
                           />
                           <button
                             className="btn btn-white border border-secondary px-3"
                             type="button"
                             id="button-addon2"
                             data-mdb-ripple-color="dark"
+                            onClick={handleIncrement}
                           >
                             <i className="fas fa-plus" />
                           </button>
                         </div>
                       </div>
                     </div>
-                    <a href="#" className="btn btn-warning shadow-0">
+                    <button
+                      className="btn btn-warning shadow-0"
+                      onClick={handleBuy}
+                    >
                       {" "}
                       Buy now{" "}
-                    </a>
-                    <a href="#" className="btn btn-primary shadow-0">
+                    </button>
+                    <button
+                      className="btn btn-primary shadow-0"
+                      onClick={handleAddToCart}
+                    >
                       {" "}
                       <i className="me-1 fa fa-shopping-basket" /> Add to cart{" "}
-                    </a>
+                    </button>
                     <a
                       href="#"
                       className="btn btn-light border border-secondary py-2 icon-hover px-3"

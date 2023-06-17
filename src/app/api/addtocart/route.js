@@ -15,6 +15,7 @@ export async function POST(request) {
         items: [
           {
             productId: reqBody.productId,
+            quantity: reqBody.quantity,
           },
         ],
       },
@@ -46,6 +47,7 @@ export async function POST(request) {
             push: [
               {
                 productId: reqBody.productId,
+                quantity: reqBody.quantity,
               },
             ],
           },
@@ -56,7 +58,7 @@ export async function POST(request) {
         if (product.productId === reqBody.productId) {
           return {
             ...product,
-            quantity: product.quantity + 1,
+            quantity: product.quantity + reqBody.quantity,
           };
         } else return product;
       });

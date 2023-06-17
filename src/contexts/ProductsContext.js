@@ -22,9 +22,10 @@ export default function ProductsProvider({ children }) {
   const [brand, setBrand] = useState([]);
 
   const productsVisible = useRef([]);
+  const productsFiltered = useRef([]);
 
   if (!productsLoading) {
-    productsVisible.current = products
+    productsFiltered.current = products
       .filter((p) => {
         if (category === "all") {
           return p;
@@ -38,15 +39,21 @@ export default function ProductsProvider({ children }) {
         } else if (brand.includes(p1.brand)) {
           return p1;
         }
-      })
-      .slice((pageNumber - 1) * 12, pageNumber * 12);
+      });
+
+    productsVisible.current = productsFiltered.current.slice(
+      (pageNumber - 1) * 12,
+      pageNumber * 12
+    );
 
     // console.log(productsVisible.current);
   }
 
   useEffect(() => {
     (async () => {
-      const res = await fetch("http://localhost:3000/api/products");
+      const res = await fetch(
+        process.env.NEXT_PUBLIC_BASE_URL + "/api/products"
+      );
       const data = await res.json();
       // console.log(data);
       setProducts([...data.products]);
@@ -90,6 +97,7 @@ export default function ProductsProvider({ children }) {
         setBrandsCount,
         brand,
         setBrand,
+        productsFiltered,
       }}
     >
       {children}

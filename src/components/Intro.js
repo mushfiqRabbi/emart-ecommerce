@@ -1,50 +1,106 @@
+"use client";
+import React from "react";
+import { MDBCarousel, MDBCarouselItem } from "mdb-react-ui-kit";
+import { useProducts } from "../contexts/ProductsContext";
+import Link from "next/link";
+
 export default function Intro() {
-  return (
-    <section className="pt-3">
-      <div className="container">
-        <div className="row gx-3">
-          <main className="col-lg-9">
-            <div
-              className="card-banner p-5 bg-primary rounded-5"
-              style={{ height: 350 }}
+  const { productsLoading, products } = useProducts();
+  if (productsLoading) {
+    return <p>loading</p>;
+  } else
+    return (
+      <section className="pt-3">
+        <div className="container">
+          <div className="row gx-3">
+            <main
+              className="col-lg-9"
+              style={
+                {
+                  // height: "500px",
+                  // overflow: "hidden",
+                  // borderRadius: "25px",
+                  // overflow: "hidden",
+                  // overflow: "hidden",
+                }
+              }
             >
-              <div style={{ maxWidth: 500 }}>
-                <h2 className="text-white">
-                  Great products with <br />
-                  best deals
-                </h2>
-                <p className="text-white">
-                  No matter how far along you are in your sophistication as an
-                  amateur astronomer, there is always one.
-                </p>
-                <a href="#" className="btn btn-light shadow-0 text-primary">
-                  {" "}
-                  View more{" "}
-                </a>
-              </div>
-            </div>
-          </main>
-          <aside className="col-lg-3">
-            <div
-              className="card-banner h-100 rounded-5"
-              style={{ backgroundColor: "#f87217" }}
-            >
-              <div className="card-body text-center pb-5">
-                <h5 className="pt-5 text-white">Amazing Gifts</h5>
-                <p className="text-white">
-                  No matter how far along you are in your sophistication
-                </p>
-                <a href="#" className="btn btn-outline-light">
-                  {" "}
-                  View more{" "}
-                </a>
-              </div>
-            </div>
-          </aside>
+              <MDBCarousel
+                showControls
+                showIndicators
+                style={{
+                  // height: "400px",
+                  // borderRadius: "10px",
+                  overflow: "hidden",
+                }}
+                className="rounded-5 shadow"
+              >
+                {[...Array(10)].map((_, index) => {
+                  const product =
+                    products[Math.floor(Math.random() * products.length)];
+
+                  return (
+                    <Link href={`/products/${product.id_}`} key={product?.id}>
+                      <MDBCarouselItem
+                        className="w-100 d-block"
+                        itemId={index + 1}
+                        src={product?.thumbnail}
+                        alt={product?.title}
+                        style={{
+                          height: "400px",
+                          // height: "100%",
+                          // borderRadius: "10px",
+                          // overflow: "hidden",
+                        }}
+                      >
+                        <div
+                          style={{
+                            backgroundColor: "rgba(0,0,0,.5)",
+                            padding: "10px 5px",
+                            // width: "100%",
+                            color: "white",
+                            borderRadius: "5px",
+                          }}
+                        >
+                          <h5>{product?.title}</h5>
+                          <p>{product?.description}</p>
+                        </div>
+                      </MDBCarouselItem>
+                    </Link>
+                  );
+                })}
+              </MDBCarousel>
+            </main>
+            <aside className="d-none d-lg-block col-lg-3 mt-2 mt-lg-0">
+              <MDBCarousel
+                className="rounded-5 shadow"
+                style={{
+                  overflow: "hidden",
+                }}
+              >
+                {[...Array(3)].map((_, index) => {
+                  const product =
+                    products[Math.floor(Math.random() * products.length)];
+                  return (
+                    <Link href={`/products/${product.id_}`} key={index}>
+                      <MDBCarouselItem
+                        className="w-100 d-block"
+                        itemId={index + 1}
+                        src={product.thumbnail}
+                        alt="..."
+                        style={{
+                          height: "400px",
+                        }}
+                      />
+                    </Link>
+                  );
+                })}
+              </MDBCarousel>
+            </aside>
+          </div>
+          {/* row //end */}
         </div>
-        {/* row //end */}
-      </div>
-      {/* container end.// */}
-    </section>
-  );
+        {/* container end.// */}
+      </section>
+    );
 }

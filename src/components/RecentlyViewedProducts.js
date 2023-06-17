@@ -1,82 +1,48 @@
+"use client";
+import Image from "next/image";
+import { useProducts } from "../contexts/ProductsContext";
+import Link from "next/link";
+
 export default function RecentlyViewedProducts() {
-  return (
-    <>
-      {/* Recently viewed */}
-      <section className="mt-5 mb-4">
-        <div className="container text-dark">
-          <header className="">
-            <h3 className="section-title">Recently viewed</h3>
-          </header>
-          <div className="row gy-3">
-            <div className="col-lg-2 col-md-4 col-4">
-              <a href="#" className="img-wrap">
-                <img
-                  height={200}
-                  width={200}
-                  className="img-thumbnail"
-                  src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/1.webp"
-                />
-              </a>
-            </div>
-            {/* col.// */}
-            <div className="col-lg-2 col-md-4 col-4">
-              <a href="#" className="img-wrap">
-                <img
-                  height={200}
-                  width={200}
-                  className="img-thumbnail"
-                  src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/2.webp"
-                />
-              </a>
-            </div>
-            {/* col.// */}
-            <div className="col-lg-2 col-md-4 col-4">
-              <a href="#" className="img-wrap">
-                <img
-                  height={200}
-                  width={200}
-                  className="img-thumbnail"
-                  src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/3.webp"
-                />
-              </a>
-            </div>
-            {/* col.// */}
-            <div className="col-lg-2 col-md-4 col-4">
-              <a href="#" className="img-wrap">
-                <img
-                  height={200}
-                  width={200}
-                  className="img-thumbnail"
-                  src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/4.webp"
-                />
-              </a>
-            </div>
-            {/* col.// */}
-            <div className="col-lg-2 col-md-4 col-4">
-              <a href="#" className="img-wrap">
-                <img
-                  height={200}
-                  width={200}
-                  className="img-thumbnail"
-                  src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/5.webp"
-                />
-              </a>
-            </div>
-            {/* col.// */}
-            <div className="col-lg-2 col-md-4 col-4">
-              <a href="#" className="img-wrap">
-                <img
-                  height={200}
-                  width={200}
-                  className="img-thumbnail"
-                  src="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/6.webp"
-                />
-              </a>
+  const { productsLoading, products } = useProducts();
+  if (productsLoading) {
+    return <p>loading</p>;
+  } else
+    return (
+      <>
+        {/* Recently viewed */}
+        <section className="mt-5 mb-4">
+          <div className="container text-dark">
+            <header className="">
+              <h3 className="section-title">Recently viewed</h3>
+            </header>
+            <div className="row gy-3">
+              {products.slice(10, 16).map((product) => {
+                return (
+                  <div className="col-lg-2 col-md-4 col-4" key={product.id}>
+                    <Link
+                      href={`/products/${product.id_}`}
+                      className="img-wrap"
+                    >
+                      <Image
+                        alt={product.title}
+                        height={200}
+                        width={200}
+                        className="img-thumbnail"
+                        src={product.thumbnail}
+                        style={{
+                          height: "150px",
+                          width: "200px",
+                        }}
+                      />
+                    </Link>
+                  </div>
+                );
+              })}
             </div>
           </div>
-        </div>
-      </section>
-      {/* Recently viewed */}
-    </>
-  );
+        </section>
+        {/* Recently viewed */}
+      </>
+    );
 }

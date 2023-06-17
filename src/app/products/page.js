@@ -1,7 +1,7 @@
 "use client";
 import AllProducts from "../../components/AllProducts";
 import AllProductsHeader from "../../components/AllProductsHeader";
-// import AllProductsPagination from "../../components/AllProductsPagination";
+import AllProductsPagination from "../../components/AllProductsPagination";
 import AllProductsSidebar from "../../components/AllProductsSidebar";
 // import AllProductsBreadCrumb from "../../components/AllProductsBreadCrumb";
 
@@ -59,11 +59,7 @@ export default function Products() {
                   {/* products */}
                   <hr />
                   {/* Pagination */}
-                  {/* <AllProductsPagination
-                    pageNumber={pageNumber}
-                    productCategory={productCategory}
-                    totalPages={totalPages}
-                  /> */}
+                  <AllProductsPagination />
                   {/* Pagination */}
                 </div>
               </div>

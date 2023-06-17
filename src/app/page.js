@@ -10,13 +10,13 @@ import NavBar from "../components/NavBar";
 export default async function Home() {
   return (
     <>
-      <NavBar />
+      {/* <NavBar /> */}
       <Intro />
       <Categories />
       <NewProducts />
-      <FeatureSectionOne />
-      <RecommendedProducts />
+      {/* <FeatureSectionOne /> */}
       <FeatureSectionTwo />
+      <RecommendedProducts />
       <RecentlyViewedProducts />
     </>
   );

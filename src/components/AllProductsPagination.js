@@ -1,22 +1,40 @@
-import Link from "next/link";
+"use client";
+// import Link from "next/link";
+import { useProducts } from "../contexts/ProductsContext";
 
-export default function AllProductsPagination({
-  pageNumber,
-  productCategory,
-  totalPages,
-}) {
+export default function AllProductsPagination({}) {
+  const { productsFiltered, pageNumber, setPageNumber } = useProducts();
+  const pages = Math.ceil(productsFiltered.current.length / 12);
+  // console.log(pages);
+  function handleClick(e) {
+    e.preventDefault();
+    setPageNumber(this);
+  }
+
+  const handleNextPage = (e) => {
+    e.preventDefault();
+    setPageNumber((p) => p + 1);
+  };
+  const handlePreviousPage = (e) => {
+    e.preventDefault();
+    setPageNumber((p) => p - 1);
+  };
   return (
     <nav
       aria-label="Page navigation example"
       className="d-flex justify-content-center mt-3"
     >
       <ul className="pagination">
-        <li className="page-item disabled">
-          <a className="page-link" href="#" aria-label="Previous">
+        <li className={`page-item ${pageNumber === 1 ? "disabled" : ""}`}>
+          <button
+            className="page-link"
+            aria-label="Previous"
+            onClick={handlePreviousPage}
+          >
             <span aria-hidden="true">«</span>
-          </a>
+          </button>
         </li>
-        {[...Array(totalPages)]?.map((val, index) => {
+        {[...Array(pages)]?.map((val, index) => {
           return (
             <li
               className={`page-item ${
@@ -24,19 +42,23 @@ export default function AllProductsPagination({
               }`}
               key={index}
             >
-              <Link
+              <button
                 className="page-link"
-                href={`/products?category=${productCategory}&page=${index + 1}`}
+                onClick={handleClick.bind(index + 1)}
               >
                 {index + 1}
-              </Link>
+              </button>
             </li>
           );
         })}
-        <li className="page-item">
-          <a className="page-link" href="#" aria-label="Next">
+        <li className={`page-item ${pageNumber === pages ? "disabled" : ""}`}>
+          <button
+            className="page-link"
+            aria-label="Next"
+            onClick={handleNextPage}
+          >
             <span aria-hidden="true">»</span>
-          </a>
+          </button>
         </li>
       </ul>
     </nav>

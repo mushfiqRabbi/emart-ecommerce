@@ -16,6 +16,7 @@ export default function AllProductsSidebar() {
     productsVisible,
     category,
     products,
+    setPageNumber,
   } = useProducts();
 
   const handleCheck = (e) => {
@@ -37,6 +38,7 @@ export default function AllProductsSidebar() {
     // console.dir(e.target.textContent.toLowerCase());
     cf.forEach((box) => (box.checked = false));
     setBrand([]);
+    setPageNumber(1);
     setCategory(e.target.textContent.toLowerCase());
   };
   return (
@@ -117,7 +119,7 @@ export default function AllProductsSidebar() {
             </h2>
             <div
               id="panelsStayOpen-collapseTwo"
-              className="accordion-collapse collapse"
+              className="accordion-collapse collapse show"
               aria-labelledby="headingTwo"
             >
               <div className="accordion-body">
@@ -199,7 +201,7 @@ export default function AllProductsSidebar() {
               </div>
             </div>
           </div>
-          <div className="accordion-item">
+          {/* <div className="accordion-item">
             <h2 className="accordion-header" id="headingThree">
               <button
                 className="accordion-button text-dark bg-light"
@@ -261,8 +263,8 @@ export default function AllProductsSidebar() {
                 </button>
               </div>
             </div>
-          </div>
-          <div className="accordion-item">
+          </div> */}
+          {/* <div className="accordion-item">
             <h2 className="accordion-header" id="headingThree">
               <button
                 className="accordion-button text-dark bg-light"
@@ -281,7 +283,6 @@ export default function AllProductsSidebar() {
               aria-labelledby="headingThree"
             >
               <div className="accordion-body">
-                {/* Default checkbox */}
                 <div className="form-check">
                   <input
                     className="form-check-input"
@@ -298,7 +299,6 @@ export default function AllProductsSidebar() {
                     <i className="fas fa-star text-warning" />
                   </label>
                 </div>
-                {/* Default checkbox */}
                 <div className="form-check">
                   <input
                     className="form-check-input"
@@ -315,7 +315,6 @@ export default function AllProductsSidebar() {
                     <i className="fas fa-star text-secondary" />
                   </label>
                 </div>
-                {/* Default checkbox */}
                 <div className="form-check">
                   <input
                     className="form-check-input"
@@ -332,7 +331,6 @@ export default function AllProductsSidebar() {
                     <i className="fas fa-star text-secondary" />
                   </label>
                 </div>
-                {/* Default checkbox */}
                 <div className="form-check">
                   <input
                     className="form-check-input"
@@ -367,7 +365,7 @@ export default function AllProductsSidebar() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

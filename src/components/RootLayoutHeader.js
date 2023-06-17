@@ -52,7 +52,7 @@ export default function RootLayoutHeader() {
                 {status !== "loading" && session && <SignOutButton />}
                 <Link
                   href="/wishlist"
-                  className="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center"
+                  className="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center disabled"
                 >
                   {" "}
                   <i className="fas fa-heart m-1 me-md-2" />

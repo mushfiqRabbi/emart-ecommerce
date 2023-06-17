@@ -28,12 +28,12 @@ export default function AllProductsHeader() {
         {productsVisible.current.length} Items found{" "}
       </strong>
       <div className="ms-auto">
-        <select className="form-select d-inline-block w-auto border pt-1">
+        {/* <select className="form-select d-inline-block w-auto border pt-1">
           <option value={0}>Best match</option>
           <option value={1}>Recommended</option>
           <option value={2}>High rated</option>
           <option value={3}>Randomly</option>
-        </select>
+        </select> */}
         <div className="btn-group shadow-0 border">
           <a
             className={!productView ? active : inActive}

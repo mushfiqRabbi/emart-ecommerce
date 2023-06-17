@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function FeatureSectionTwo() {
   return (
     <>
@@ -15,9 +17,12 @@ export default function FeatureSectionTwo() {
                 </p>
               </div>
               <div className="col-auto">
-                <a className="btn btn-white text-primary shadow-0" href="#">
+                <Link
+                  className="btn btn-white text-primary shadow-0"
+                  href={`/products`}
+                >
                   Discover
-                </a>
+                </Link>
               </div>
             </div>
           </div>
