@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useProducts } from "../contexts/ProductsContext";
+import { Skeleton } from "react-skeleton-generator";
 
 const cf = [];
 
@@ -17,6 +18,7 @@ export default function AllProductsSidebar() {
     category,
     products,
     setPageNumber,
+    productsLoading,
   } = useProducts();
 
   const handleCheck = (e) => {
@@ -81,25 +83,35 @@ export default function AllProductsSidebar() {
             >
               <div className="accordion-body">
                 <ul className="list-unstyled">
-                  {categories.map((ct, index) => {
-                    return (
-                      <li key={index} className="row">
-                        <a
-                          className={`${
-                            ct === category
-                              ? "bg-primary text-white"
-                              : "text-dark"
-                          }`}
-                          onClick={handleClick}
-                          style={{
-                            cursor: "pointer",
-                          }}
-                        >
-                          {ct[0].toUpperCase() + ct.slice(1)}
-                        </a>
-                      </li>
-                    );
-                  })}
+                  {productsLoading && (
+                    <Skeleton.SkeletonThemeProvider>
+                      <Skeleton
+                        style={{
+                          height: "55vh",
+                        }}
+                      />
+                    </Skeleton.SkeletonThemeProvider>
+                  )}
+                  {!productsLoading &&
+                    categories.map((ct, index) => {
+                      return (
+                        <li key={index} className="row">
+                          <a
+                            className={`${
+                              ct === category
+                                ? "bg-primary text-white"
+                                : "text-dark"
+                            }`}
+                            onClick={handleClick}
+                            style={{
+                              cursor: "pointer",
+                            }}
+                          >
+                            {ct[0].toUpperCase() + ct.slice(1)}
+                          </a>
+                        </li>
+                      );
+                    })}
                 </ul>
               </div>
             </div>
@@ -125,7 +137,19 @@ export default function AllProductsSidebar() {
               <div className="accordion-body">
                 <div>
                   {/* Checked checkbox */}
-                  {category !== "all" &&
+                  {productsLoading && (
+                    <Skeleton.SkeletonThemeProvider>
+                      <Skeleton
+                        style={
+                          {
+                            // height: "auto",
+                          }
+                        }
+                      />
+                    </Skeleton.SkeletonThemeProvider>
+                  )}
+                  {!productsLoading &&
+                    category !== "all" &&
                     Array.from(
                       new Set(
                         products

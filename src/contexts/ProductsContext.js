@@ -100,7 +100,7 @@ export default function ProductsProvider({ children }) {
       }}
     >
       {children}
-      <Toaster position="top-right" />
+      <Toaster position="top-center" />
     </ProductsContext.Provider>
   );
 }

@@ -4,6 +4,7 @@ import { useProducts } from "../contexts/ProductsContext";
 import { useCart } from "../contexts/CartContext";
 import Link from "next/link";
 import { toast } from "react-hot-toast";
+import { Skeleton } from "react-skeleton-generator";
 
 export default function NewProducts() {
   const { productsLoading, products } = useProducts();
@@ -22,19 +23,33 @@ export default function NewProducts() {
       position: "top-center",
     });
   };
-  if (productsLoading) {
-    return <p>loading</p>;
-  } else
-    return (
-      <>
-        {/* Products */}
-        <section>
-          <div className="container my-5">
-            <header className="mb-4">
-              <h3>New products</h3>
-            </header>
-            <div className="row">
-              {products.slice(50, 58).map((product) => {
+  return (
+    <>
+      {/* Products */}
+      <section>
+        <div className="container my-5">
+          <header className="mb-4">
+            <h3>New products</h3>
+          </header>
+          <div className="row">
+            {productsLoading &&
+              [...Array(8)].map((_, key) => {
+                return (
+                  <div key={key} className="col-lg-3 col-md-6 col-sm-6 d-flex">
+                    <div className="card w-100 my-2 shadow-2-strong">
+                      <Skeleton.SkeletonThemeProvider>
+                        <Skeleton
+                          style={{
+                            height: "400px",
+                          }}
+                        />
+                      </Skeleton.SkeletonThemeProvider>
+                    </div>
+                  </div>
+                );
+              })}
+            {!productsLoading &&
+              products.slice(50, 58).map((product) => {
                 return (
                   <div
                     className="col-lg-3 col-md-6 col-sm-6 d-flex"
@@ -75,10 +90,10 @@ export default function NewProducts() {
                   </div>
                 );
               })}
-            </div>
           </div>
-        </section>
-        {/* Products */}
-      </>
-    );
+        </div>
+      </section>
+      {/* Products */}
+    </>
+  );
 }

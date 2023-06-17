@@ -8,7 +8,7 @@ import { useCart } from "../contexts/CartContext";
 import { useRouter } from "next/navigation";
 
 export default function SingleProduct({ product }) {
-  const { gridView } = useProducts();
+  const { gridView, productsLoading } = useProducts();
   const { addToCart } = useCart();
   const router = useRouter();
   // const description = product.description.slice(0, 25);

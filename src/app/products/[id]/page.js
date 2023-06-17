@@ -9,6 +9,7 @@ import { useState } from "react";
 import { useCart } from "../../../contexts/CartContext";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
+import { Skeleton } from "react-skeleton-generator";
 
 export default function Product({ params }) {
   const { productsLoading, products } = useProducts();
@@ -51,7 +52,22 @@ export default function Product({ params }) {
   };
 
   if (productsLoading) {
-    return <p>loading</p>;
+    return (
+      <div
+        className="w-75 mx-auto"
+        style={{
+          padding: "5vh 5vw",
+        }}
+      >
+        <Skeleton.SkeletonThemeProvider>
+          <Skeleton
+            style={{
+              height: "60vh",
+            }}
+          ></Skeleton>
+        </Skeleton.SkeletonThemeProvider>
+      </div>
+    );
   } else {
     const product = products?.find((p) => p.id_ === Number(params.id));
     // console.log(products);

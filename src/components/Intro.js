@@ -3,28 +3,42 @@ import React from "react";
 import { MDBCarousel, MDBCarouselItem } from "mdb-react-ui-kit";
 import { useProducts } from "../contexts/ProductsContext";
 import Link from "next/link";
+import { Skeleton } from "react-skeleton-generator";
 
 export default function Intro() {
   const { productsLoading, products } = useProducts();
-  if (productsLoading) {
-    return <p>loading</p>;
-  } else
-    return (
-      <section className="pt-3">
-        <div className="container">
-          <div className="row gx-3">
-            <main
-              className="col-lg-9"
-              style={
-                {
-                  // height: "500px",
-                  // overflow: "hidden",
-                  // borderRadius: "25px",
-                  // overflow: "hidden",
-                  // overflow: "hidden",
-                }
+  // if (productsLoading) {
+  //   return <p>loading</p>;
+  // } else
+  return (
+    <section className="pt-3">
+      <div className="container">
+        <div className="row gx-3">
+          <main
+            className="col-lg-9"
+            style={
+              {
+                // height: "500px",
+                // overflow: "hidden",
+                // borderRadius: "25px",
+                // overflow: "hidden",
+                // overflow: "hidden",
               }
-            >
+            }
+          >
+            {" "}
+            {productsLoading && (
+              <Skeleton.SkeletonThemeProvider>
+                <Skeleton
+                  style={{
+                    width: "auto",
+                    height: "400px",
+                    borderRadius: "5px",
+                  }}
+                />
+              </Skeleton.SkeletonThemeProvider>
+            )}
+            {!productsLoading && (
               <MDBCarousel
                 showControls
                 showIndicators
@@ -70,8 +84,19 @@ export default function Intro() {
                   );
                 })}
               </MDBCarousel>
-            </main>
-            <aside className="d-none d-lg-block col-lg-3 mt-2 mt-lg-0">
+            )}
+          </main>
+          <aside className="d-none d-lg-block col-lg-3 mt-2 mt-lg-0">
+            {productsLoading && (
+              <Skeleton.SkeletonThemeProvider>
+                <Skeleton
+                  style={{
+                    height: "400px",
+                  }}
+                />
+              </Skeleton.SkeletonThemeProvider>
+            )}
+            {!productsLoading && (
               <MDBCarousel
                 className="rounded-5 shadow"
                 style={{
@@ -96,11 +121,12 @@ export default function Intro() {
                   );
                 })}
               </MDBCarousel>
-            </aside>
-          </div>
-          {/* row //end */}
+            )}
+          </aside>
         </div>
-        {/* container end.// */}
-      </section>
-    );
+        {/* row //end */}
+      </div>
+      {/* container end.// */}
+    </section>
+  );
 }

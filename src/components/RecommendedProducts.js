@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useProducts } from "../contexts/ProductsContext";
 import Link from "next/link";
 import { toast } from "react-hot-toast";
+import { Skeleton } from "react-skeleton-generator";
 
 export default function RecommendedProducts() {
   const { productsLoading, products } = useProducts();
@@ -13,19 +14,33 @@ export default function RecommendedProducts() {
       position: "top-center",
     });
   };
-  if (productsLoading) {
-    return <p>loading</p>;
-  } else
-    return (
-      <>
-        {/* Recommended */}
-        <section>
-          <div className="container my-5">
-            <header className="mb-4">
-              <h3>Recommended</h3>
-            </header>
-            <div className="row">
-              {
+  return (
+    <>
+      {/* Recommended */}
+      <section>
+        <div className="container my-5">
+          <header className="mb-4">
+            <h3>Recommended</h3>
+          </header>
+          <div className="row">
+            {productsLoading &&
+              [...Array(4)].map((_, key) => {
+                return (
+                  <div key={key} className="col-lg-3 col-md-6 col-sm-6">
+                    <div key={key} className="card my-2 shadow-0">
+                      <Skeleton.SkeletonThemeProvider>
+                        <Skeleton
+                          style={{
+                            height: "350px",
+                          }}
+                        />
+                      </Skeleton.SkeletonThemeProvider>
+                    </div>
+                  </div>
+                );
+              })}
+            {
+              !productsLoading &&
                 products
                   .filter((product) => product.rating > 4.9)
                   .slice(0, 4)
@@ -61,12 +76,12 @@ export default function RecommendedProducts() {
                       </div>
                     );
                   })
-                // console.log(product);
-              }
-            </div>
+              // console.log(product);
+            }
           </div>
-        </section>
-        {/* Recommended */}
-      </>
-    );
+        </div>
+      </section>
+      {/* Recommended */}
+    </>
+  );
 }

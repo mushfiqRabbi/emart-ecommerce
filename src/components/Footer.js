@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Footer() {
   return (
     <>
@@ -11,15 +13,12 @@ export default function Footer() {
               {/* Grid column */}
               <div className="col-12 col-lg-3 col-sm-12 mb-2">
                 {/* Content */}
-                <a
-                  href="https://mdbootstrap.com/"
-                  target="_blank"
-                  className="text-white h2"
-                >
-                  MDB
-                </a>
+                <p className="text-white h2">eMart</p>
                 <p className="mt-1 text-white">
-                  © 2023 Copyright: MDBootstrap.com
+                  © 2023 Copyright:{" "}
+                  <Link href="mushfiqxrabbi@gmail.com" className="text-white">
+                    mushfiqxrabbi@gmail.com
+                  </Link>
                 </p>
               </div>
               {/* Grid column */}
@@ -130,12 +129,14 @@ export default function Footer() {
                     placeholder="Email"
                     aria-label="Email"
                     aria-describedby="button-addon2"
+                    disabled
                   />
                   <button
                     className="btn btn-light border shadow-0"
                     type="button"
                     id="button-addon2"
                     data-mdb-ripple-color="dark"
+                    disabled
                   >
                     Join
                   </button>
@@ -147,98 +148,6 @@ export default function Footer() {
           </div>
         </section>
         {/* Section: Links  */}
-        <div className="">
-          <div className="container">
-            <div className="d-flex justify-content-between py-4 border-top">
-              {/*- payment -*/}
-              <div>
-                <i className="fab fa-lg fa-cc-visa text-white" />
-                <i className="fab fa-lg fa-cc-amex text-white" />
-                <i className="fab fa-lg fa-cc-mastercard text-white" />
-                <i className="fab fa-lg fa-cc-paypal text-white" />
-              </div>
-              {/*- payment -*/}
-              {/*- language selector -*/}
-              <div className="dropdown dropup">
-                <a
-                  className="dropdown-toggle text-white"
-                  href="#"
-                  id="Dropdown"
-                  role="button"
-                  data-mdb-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  {" "}
-                  <i className="flag-united-kingdom flag m-0 me-1" />
-                  English{" "}
-                </a>
-                <ul
-                  className="dropdown-menu dropdown-menu-end"
-                  aria-labelledby="Dropdown"
-                >
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      <i className="flag-united-kingdom flag" />
-                      English <i className="fa fa-check text-success ms-2" />
-                    </a>
-                  </li>
-                  <li>
-                    <hr className="dropdown-divider" />
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      <i className="flag-poland flag" />
-                      Polski
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      <i className="flag-china flag" />
-                      中文
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      <i className="flag-japan flag" />
-                      日本語
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      <i className="flag-germany flag" />
-                      Deutsch
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      <i className="flag-france flag" />
-                      Français
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      <i className="flag-spain flag" />
-                      Español
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      <i className="flag-russia flag" />
-                      Русский
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      <i className="flag-portugal flag" />
-                      Português
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              {/*- language selector -*/}
-            </div>
-          </div>
-        </div>
       </footer>
       {/* Footer */}
     </>

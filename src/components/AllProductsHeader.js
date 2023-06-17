@@ -1,4 +1,5 @@
 "use client";
+import { Skeleton } from "react-skeleton-generator";
 import { useProducts } from "../contexts/ProductsContext";
 
 export default function AllProductsHeader() {
@@ -9,6 +10,7 @@ export default function AllProductsHeader() {
     gridView: productView,
     setGridView,
     productsVisible,
+    productsLoading,
   } = useProducts();
   // console.log(productView);
   const handleListClick = (e) => {
@@ -25,7 +27,12 @@ export default function AllProductsHeader() {
   return (
     <header className="d-sm-flex align-items-center border-bottom mb-4 pb-3">
       <strong className="d-block py-2">
-        {productsVisible.current.length} Items found{" "}
+        {productsLoading && (
+          <Skeleton.SkeletonThemeProvider>
+            <Skeleton />
+          </Skeleton.SkeletonThemeProvider>
+        )}
+        {!productsLoading && `${productsVisible.current.length} Items found`}
       </strong>
       <div className="ms-auto">
         {/* <select className="form-select d-inline-block w-auto border pt-1">

@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
+import { Skeleton } from "react-skeleton-generator";
 // import { loadStripe } from "@stripe/stripe-js";
 
 // import prisma from "../../../lib/db";
@@ -66,7 +67,22 @@ export default function Cart() {
   }
 
   if (status === "loading" || cartLoading) {
-    return <p>loading</p>;
+    return (
+      <div
+        className="w-75 mx-auto"
+        style={{
+          padding: "5vh 5vw",
+        }}
+      >
+        <Skeleton.SkeletonThemeProvider>
+          <Skeleton
+            style={{
+              height: "60vh",
+            }}
+          ></Skeleton>
+        </Skeleton.SkeletonThemeProvider>
+      </div>
+    );
   }
 
   if (!session) {

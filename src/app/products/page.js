@@ -7,6 +7,7 @@ import AllProductsSidebar from "../../components/AllProductsSidebar";
 
 import { useProducts } from "../../contexts/ProductsContext";
 import { useCart } from "../../contexts/CartContext";
+import { Skeleton } from "react-skeleton-generator";
 
 export default function Products() {
   const {
@@ -19,9 +20,10 @@ export default function Products() {
   } = useProducts();
   const { cartLoading, cart } = useCart();
   // console.log(loading);
-  if (productsLoading || cartLoading) {
-    return <p>loading</p>;
-  } else {
+  // if (productsLoading || cartLoading) {
+  //   return <p>loading</p>;
+  // } else
+  {
     return (
       <>
         {/* Heading */}
@@ -48,13 +50,38 @@ export default function Products() {
                   <AllProductsHeader />
                   {/* AllProductsHeader */}
                   {/* products */}
-                  {gridView && (
+                  {productsLoading && (
                     <div className="row">
-                      <AllProducts products={productsVisible.current} />
+                      {[...Array(12)].map((_, key) => {
+                        return (
+                          <div
+                            key={key}
+                            className="col-lg-4 col-md-6 col-sm-6 d-flex"
+                          >
+                            <div className="card w-100 my-2 shadow-2-strong">
+                              <Skeleton.SkeletonThemeProvider>
+                                <Skeleton
+                                  style={{
+                                    height: "400px",
+                                  }}
+                                />
+                              </Skeleton.SkeletonThemeProvider>
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
                   )}
-                  {!gridView && (
-                    <AllProducts products={productsVisible.current} />
+                  {/* {productsLoading && (
+                    <AllProducts products={productsVisible?.current} />
+                  )} */}
+                  {!productsLoading && gridView && (
+                    <div className="row">
+                      <AllProducts products={productsVisible?.current} />
+                    </div>
+                  )}
+                  {!productsLoading && !gridView && (
+                    <AllProducts products={productsVisible?.current} />
                   )}
                   {/* products */}
                   <hr />
