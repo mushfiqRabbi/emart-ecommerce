@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useEffect, useState, useContext, useRef } from "react";
+import { Toaster } from "react-hot-toast";
 
 const ProductsContext = createContext();
 
@@ -101,6 +102,7 @@ export default function ProductsProvider({ children }) {
       }}
     >
       {children}
+      <Toaster position="top-right" />
     </ProductsContext.Provider>
   );
 }

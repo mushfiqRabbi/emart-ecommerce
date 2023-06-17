@@ -3,6 +3,7 @@
 import Image from "next/image";
 import QuantityController from "../components/QuantityController";
 import { useCart } from "../contexts/CartContext";
+import { toast } from "react-hot-toast";
 
 export default function CartItem({ item }) {
   const { product, productId, quantity } = item;
@@ -11,6 +12,14 @@ export default function CartItem({ item }) {
   const handleRemove = async (e) => {
     e.preventDefault();
     removeFromCart(productId);
+  };
+
+  const handleAddToWishList = (e) => {
+    e.preventDefault();
+    toast("Feature coming soon!", {
+      icon: "🧩",
+      position: "top-center",
+    });
   };
 
   return (
@@ -57,9 +66,12 @@ export default function CartItem({ item }) {
       </div>
       <div className="col-lg col-sm-6 d-flex justify-content-sm-center justify-content-md-start justify-content-lg-center justify-content-xl-end mb-2">
         <div className="float-md-end">
-          <a href="#!" className="btn btn-light border px-2 icon-hover-primary">
+          <button
+            className="btn btn-light border px-2 icon-hover-primary"
+            onClick={handleAddToWishList}
+          >
             <i className="fas fa-heart fa-lg px-1 text-secondary" />
-          </a>
+          </button>
           <button
             className="btn btn-light border text-danger icon-hover-danger"
             onClick={handleRemove}

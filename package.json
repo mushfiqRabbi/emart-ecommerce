@@ -23,6 +23,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.44.3",
+    "react-hot-toast": "^2.4.1",
     "react-instantsearch-hooks-web": "^6.44.3",
     "sharp": "^0.32.1",
     "stripe": "^12.9.0",

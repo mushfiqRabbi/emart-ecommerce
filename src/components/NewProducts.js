@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useProducts } from "../contexts/ProductsContext";
 import { useCart } from "../contexts/CartContext";
 import Link from "next/link";
+import { toast } from "react-hot-toast";
 
 export default function NewProducts() {
   const { productsLoading, products } = useProducts();
@@ -13,6 +14,14 @@ export default function NewProducts() {
     // console.log(this);
     addToCart(this);
   }
+
+  const handleAddToWishList = (e) => {
+    e.preventDefault();
+    toast("Feature coming soon!", {
+      icon: "🧩",
+      position: "top-center",
+    });
+  };
   if (productsLoading) {
     return <p>loading</p>;
   } else
@@ -54,12 +63,12 @@ export default function NewProducts() {
                           >
                             Add to cart
                           </button>
-                          <a
-                            href="#!"
+                          <button
                             className="btn btn-light border px-2 pt-2 icon-hover"
+                            onClick={handleAddToWishList}
                           >
                             <i className="fas fa-heart fa-lg text-secondary px-1" />
-                          </a>
+                          </button>
                         </div>
                       </div>
                     </div>

@@ -1,9 +1,12 @@
 "use client";
 
+import toast from "react-hot-toast";
+
 import { useContext } from "react";
 import { createContext, useState, useRef, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useProducts } from "./ProductsContext";
+import { useRouter } from "next/navigation";
 
 const CartContext = createContext();
 
@@ -17,6 +20,7 @@ export default function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
   const [itemsCount, setItemsCount] = useState(0);
   const [cartLoading, setCartLoading] = useState(true);
+  const router = useRouter();
 
   // const cartTotalPrice = useRef(0);
 
@@ -37,63 +41,84 @@ export default function CartProvider({ children }) {
     return cartTotalPrice.toFixed(2);
   };
 
-  const addToCart = async (pid, quantity = 1) => {
-    const cartItems = cart;
-    const itemIndex = cartItems?.findIndex((p) => {
-      return p.productId === pid;
-    });
-    if (itemIndex >= 0) {
-      cartItems[itemIndex] = {
-        ...cartItems[itemIndex],
-        quantity: cartItems[itemIndex].quantity + quantity,
-      };
-    } else {
-      cartItems.push({
-        productId: pid,
-        quantity: quantity,
-        product: products.find((p) => p.id_ === pid),
-      });
+  const addToCart = (pid, quantity = 1) => {
+    if (!session) {
+      toast.error("Login to use cart!", { position: "top-center" });
+      return router.push("/signin-signup");
     }
-    // console.log("local cart: ", cartItems);
-    setCart([...cartItems]);
 
-    const res = await fetch(
-      process.env.NEXT_PUBLIC_BASE_URL + "/api/addtocart",
-      {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({
-          user: session.user,
+    const add = async () => {
+      const cartItems = cart;
+      const itemIndex = cartItems?.findIndex((p) => {
+        return p.productId === pid;
+      });
+      if (itemIndex >= 0) {
+        cartItems[itemIndex] = {
+          ...cartItems[itemIndex],
+          quantity: cartItems[itemIndex].quantity + quantity,
+        };
+      } else {
+        cartItems.push({
           productId: pid,
           quantity: quantity,
-        }),
+          product: products.find((p) => p.id_ === pid),
+        });
       }
-    );
-    const data = await res.json();
-    // console.log("db cart", data);
+      // console.log("local cart: ", cartItems);
+      setCart([...cartItems]);
+
+      const res = await fetch(
+        process.env.NEXT_PUBLIC_BASE_URL + "/api/addtocart",
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({
+            user: session.user,
+            productId: pid,
+            quantity: quantity,
+          }),
+        }
+      );
+      const data = await res.json();
+      // console.log("db cart", data);
+    };
+
+    toast.promise(add(), {
+      loading: "Adding...",
+      success: <b>Success!</b>,
+      error: <b>Failed!</b>,
+    });
   };
 
-  const removeFromCart = async (pid) => {
-    const cartItems = cart;
-    const itemIndex = cartItems.findIndex((p) => p.productId === pid);
-    // console.log(itemIndex);
-    cartItems.splice(itemIndex, 1);
-    setCart([...cartItems]);
+  const removeFromCart = (pid) => {
+    const remove = async () => {
+      const cartItems = cart;
+      const itemIndex = cartItems.findIndex((p) => p.productId === pid);
+      // console.log(itemIndex);
+      cartItems.splice(itemIndex, 1);
+      setCart([...cartItems]);
 
-    const res = await fetch(
-      process.env.NEXT_PUBLIC_BASE_URL + "/api/removecartitem",
-      {
-        method: "post",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({
-          productId: pid,
-        }),
-      }
-    );
+      const res = await fetch(
+        process.env.NEXT_PUBLIC_BASE_URL + "/api/removecartitem",
+        {
+          method: "post",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({
+            productId: pid,
+          }),
+        }
+      );
+    };
+
+    toast.promise(remove(), {
+      loading: "Removing...",
+      success: <b>Removed!</b>,
+      error: <b>Failed!</b>,
+    });
   };
 
   const increaseQuantity = async (pid) => {

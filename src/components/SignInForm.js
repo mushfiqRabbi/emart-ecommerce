@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { MDBInput } from "mdb-react-ui-kit";
+import { toast } from "react-hot-toast";
 
 export default function SignInForm({ tab, setTab }) {
   const router = useRouter();
@@ -14,16 +15,32 @@ export default function SignInForm({ tab, setTab }) {
   } = useForm();
 
   const handleLoginUser = async (user) => {
-    const res = await signIn("credentials", {
-      email: user.email,
-      password: user.password,
-      redirect: false,
-    });
-    if (!res.error) {
-      router.push("/");
-    } else {
-      console.log(res);
-    }
+    const logIn = async () => {
+      const res = await signIn("credentials", {
+        email: user.email,
+        password: user.password,
+        redirect: false,
+      });
+      if (!res.error) {
+        toast("Redirecting...");
+        router.replace("/");
+      } else {
+        // console.log(res);
+        throw new Error();
+      }
+    };
+
+    toast.promise(
+      logIn(),
+      {
+        loading: "Logging In...",
+        success: <b>Success!</b>,
+        error: <b>Failed!</b>,
+      },
+      {
+        position: "top-center",
+      }
+    );
   };
   return (
     <div

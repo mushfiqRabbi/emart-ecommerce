@@ -2,9 +2,17 @@
 import Image from "next/image";
 import { useProducts } from "../contexts/ProductsContext";
 import Link from "next/link";
+import { toast } from "react-hot-toast";
 
 export default function RecommendedProducts() {
   const { productsLoading, products } = useProducts();
+  const handleAddToWishList = (e) => {
+    e.preventDefault();
+    toast("Feature coming soon!", {
+      icon: "🧩",
+      position: "top-center",
+    });
+  };
   if (productsLoading) {
     return <p>loading</p>;
   } else
@@ -39,12 +47,12 @@ export default function RecommendedProducts() {
                             />
                           </Link>
                           <div className="card-body p-0 pt-3">
-                            <a
-                              href="#!"
+                            <button
                               className="btn btn-light border px-2 pt-2 float-end icon-hover"
+                              onClick={handleAddToWishList}
                             >
                               <i className="fas fa-heart fa-lg px-1 text-secondary" />
-                            </a>
+                            </button>
                             <h5 className="card-title">${product?.price}</h5>
                             <p className="card-text mb-0">{product?.title}</p>
                             <p className="text-muted">{product?.brand}</p>

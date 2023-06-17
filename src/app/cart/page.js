@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { useProducts } from "../../contexts/ProductsContext";
 import Image from "next/image";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import toast from "react-hot-toast";
 // import { loadStripe } from "@stripe/stripe-js";
 
 // import prisma from "../../../lib/db";
@@ -16,6 +18,8 @@ import Link from "next/link";
 // );
 
 export default function Cart() {
+  const { data: session, status } = useSession();
+
   const {
     cartLoading,
     cart,
@@ -30,13 +34,31 @@ export default function Cart() {
 
   const handlePurchase = async (e) => {
     e.preventDefault();
-    const res = await fetch(
-      process.env.NEXT_PUBLIC_BASE_URL + "/api/checkout_sessions",
-      {
-        method: "post",
+    if (cart.length === 0) {
+      return toast.error("Empty cart!");
+    }
+
+    let url;
+
+    const doPurchase = async () => {
+      try {
+        const res = await fetch(
+          process.env.NEXT_PUBLIC_BASE_URL + "/api/checkout_sessions",
+          {
+            method: "post",
+          }
+        );
+        url = (await res.json()).url;
+      } catch (e) {
+        console.log(e);
       }
-    );
-    const url = (await res.json()).url;
+    };
+
+    await toast.promise(doPurchase(), {
+      loading: "Processing, please wait...",
+      success: <b>Redirecting...</b>,
+      error: <b>Failed!</b>,
+    });
     // console.log(url);
     router.push(url);
   };
@@ -46,8 +68,13 @@ export default function Cart() {
     addToCart(this.id_);
   }
 
-  if (cartLoading) {
+  if (status === "loading" || cartLoading) {
     return <p>loading</p>;
+  }
+
+  if (!session) {
+    toast.error("Login to use cart!", { position: "top-center" });
+    return router.replace("/signin-signup");
   } else {
     return (
       <>

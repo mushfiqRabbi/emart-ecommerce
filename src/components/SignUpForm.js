@@ -2,6 +2,7 @@
 import { useForm } from "react-hook-form";
 import { registerUser } from "../app/actions";
 import { MDBInput } from "mdb-react-ui-kit";
+import { toast } from "react-hot-toast";
 
 export default function SignUpForm({ tab, setTab }) {
   const {
@@ -13,15 +14,24 @@ export default function SignUpForm({ tab, setTab }) {
 
   const handleRegisterUser = async (data) => {
     if (data.password === data.repeatPassword) {
-      const response = await registerUser(data);
-      if (response.type === "success") {
-        setTab("login");
-      } else {
-        console.log(response.message);
-      }
-      return;
+      const register = async () => {
+        const response = await registerUser(data);
+        if (response.type === "success") {
+          setTab("login");
+        } else {
+          // console.log(response.message);
+          throw new Error();
+        }
+        return;
+      };
+      toast.promise(register(), {
+        loading: "Registering...",
+        success: "Registration Completed!",
+        error: "Registration Failed!",
+      });
+    } else {
+      toast.error("Passwords do not match!", { position: "top-center" });
     }
-    console.log("Passwords do not math !");
   };
 
   return (

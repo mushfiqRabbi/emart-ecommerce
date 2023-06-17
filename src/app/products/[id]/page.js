@@ -8,6 +8,7 @@ import { useProducts } from "../../../contexts/ProductsContext";
 import { useState } from "react";
 import { useCart } from "../../../contexts/CartContext";
 import { useRouter } from "next/navigation";
+import { toast } from "react-hot-toast";
 
 export default function Product({ params }) {
   const { productsLoading, products } = useProducts();
@@ -39,6 +40,14 @@ export default function Product({ params }) {
     e.preventDefault();
     addToCart(Number(params.id), qt);
     router.push("cart");
+  };
+
+  const handleAddToWishList = (e) => {
+    e.preventDefault();
+    toast("Feature coming soon!", {
+      icon: "🧩",
+      position: "top-center",
+    });
   };
 
   if (productsLoading) {
@@ -205,13 +214,13 @@ export default function Product({ params }) {
                       {" "}
                       <i className="me-1 fa fa-shopping-basket" /> Add to cart{" "}
                     </button>
-                    <a
-                      href="#"
+                    <button
                       className="btn btn-light border border-secondary py-2 icon-hover px-3"
+                      onClick={handleAddToWishList}
                     >
                       {" "}
                       <i className="me-1 fa fa-heart fa-lg" /> Save{" "}
-                    </a>
+                    </button>
                   </div>
                 </main>
               </div>
