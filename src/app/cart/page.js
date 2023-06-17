@@ -42,12 +42,9 @@ export default function Cart() {
 
     const doPurchase = async () => {
       try {
-        const res = await fetch(
-          process.env.NEXT_PUBLIC_BASE_URL + "/api/checkout_sessions",
-          {
-            method: "post",
-          }
-        );
+        const res = await fetch("api/checkout_sessions", {
+          method: "post",
+        });
         url = (await res.json()).url;
       } catch (e) {
         console.log(e);

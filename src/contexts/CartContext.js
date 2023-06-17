@@ -67,20 +67,17 @@ export default function CartProvider({ children }) {
       // console.log("local cart: ", cartItems);
       setCart([...cartItems]);
 
-      const res = await fetch(
-        process.env.NEXT_PUBLIC_BASE_URL + "/api/addtocart",
-        {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify({
-            user: session.user,
-            productId: pid,
-            quantity: quantity,
-          }),
-        }
-      );
+      const res = await fetch("api/addtocart", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          user: session.user,
+          productId: pid,
+          quantity: quantity,
+        }),
+      });
       const data = await res.json();
       // console.log("db cart", data);
     };
@@ -100,18 +97,15 @@ export default function CartProvider({ children }) {
       cartItems.splice(itemIndex, 1);
       setCart([...cartItems]);
 
-      const res = await fetch(
-        process.env.NEXT_PUBLIC_BASE_URL + "/api/removecartitem",
-        {
-          method: "post",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify({
-            productId: pid,
-          }),
-        }
-      );
+      const res = await fetch("api/removecartitem", {
+        method: "post",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          productId: pid,
+        }),
+      });
     };
 
     toast.promise(remove(), {
@@ -131,19 +125,16 @@ export default function CartProvider({ children }) {
     };
     setCart([...cartItems]);
 
-    const res = await fetch(
-      process.env.NEXT_PUBLIC_BASE_URL + "/api/updatequantity",
-      {
-        method: "post",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({
-          productId: pid,
-          quantity: cartItems[itemIndex].quantity,
-        }),
-      }
-    );
+    const res = await fetch("api/updatequantity", {
+      method: "post",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        productId: pid,
+        quantity: cartItems[itemIndex].quantity,
+      }),
+    });
   };
 
   const decreaseQuantity = async (pid) => {
@@ -156,33 +147,27 @@ export default function CartProvider({ children }) {
     };
     setCart([...cartItems]);
 
-    const res = await fetch(
-      process.env.NEXT_PUBLIC_BASE_URL + "/api/updatequantity",
-      {
-        method: "post",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({
-          productId: pid,
-          quantity: cartItems[itemIndex].quantity,
-        }),
-      }
-    );
+    const res = await fetch("api/updatequantity", {
+      method: "post",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        productId: pid,
+        quantity: cartItems[itemIndex].quantity,
+      }),
+    });
   };
   useEffect(() => {
     if (session?.user && !productsLoading) {
       (async () => {
-        const res = await fetch(
-          process.env.NEXT_PUBLIC_BASE_URL + "/api/cart",
-          {
-            method: "post",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify(session.user),
-          }
-        );
+        const res = await fetch("api/cart", {
+          method: "post",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(session.user),
+        });
         let cartItems = await res?.json();
         if (cartItems?.length === 0) {
           return;
