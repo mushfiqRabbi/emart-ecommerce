@@ -42,7 +42,7 @@ export default function Cart() {
 
     const doPurchase = async () => {
       try {
-        const res = await fetch("api/checkout_sessions", {
+        const res = await fetch("/api/checkout_sessions", {
           method: "post",
         });
         url = (await res.json()).url;

@@ -67,7 +67,7 @@ export default function CartProvider({ children }) {
       // console.log("local cart: ", cartItems);
       setCart([...cartItems]);
 
-      const res = await fetch("api/addtocart", {
+      const res = await fetch("/api/addtocart", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -97,7 +97,7 @@ export default function CartProvider({ children }) {
       cartItems.splice(itemIndex, 1);
       setCart([...cartItems]);
 
-      const res = await fetch("api/removecartitem", {
+      const res = await fetch("/api/removecartitem", {
         method: "post",
         headers: {
           "content-type": "application/json",
@@ -125,7 +125,7 @@ export default function CartProvider({ children }) {
     };
     setCart([...cartItems]);
 
-    const res = await fetch("api/updatequantity", {
+    const res = await fetch("/api/updatequantity", {
       method: "post",
       headers: {
         "content-type": "application/json",
@@ -147,7 +147,7 @@ export default function CartProvider({ children }) {
     };
     setCart([...cartItems]);
 
-    const res = await fetch("api/updatequantity", {
+    const res = await fetch("/api/updatequantity", {
       method: "post",
       headers: {
         "content-type": "application/json",
@@ -161,7 +161,7 @@ export default function CartProvider({ children }) {
   useEffect(() => {
     if (session?.user && !productsLoading) {
       (async () => {
-        const res = await fetch("api/cart", {
+        const res = await fetch("/api/cart", {
           method: "post",
           headers: {
             "content-type": "application/json",
