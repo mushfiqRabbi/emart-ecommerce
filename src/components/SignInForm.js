@@ -123,7 +123,16 @@ export default function SignInForm({ tab, setTab }) {
         {/* Register buttons */}
         <div className="text-center">
           <p>
-            Not a member? <a href="#!">Register</a>
+            Not a member?{" "}
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                setTab("register");
+              }}
+            >
+              Register
+            </a>
           </p>
         </div>
       </form>
