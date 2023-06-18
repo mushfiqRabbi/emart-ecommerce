@@ -47,6 +47,7 @@ export default function Cart() {
           method: "post",
         });
         url = (await res.json()).url;
+        // console.log(url);
       } catch (e) {
         console.log(e);
       }

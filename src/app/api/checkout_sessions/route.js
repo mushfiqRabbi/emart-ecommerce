@@ -28,13 +28,11 @@ export async function POST(request) {
     return {
       price_data: {
         currency: "usd",
-        unit_amount:
-          (
-            p.product.price -
-            (
-              (p.product.price * p.product.discountPercentage).toFixed(2) / 100
-            ).toFixed(2)
-          ).toFixed(2) * 100,
+        unit_amount: Math.round(
+          (p.product.price -
+            (p.product.price * p.product.discountPercentage) / 100) *
+            100
+        ),
         product_data: {
           name: p.product.title,
           images: [p.product.thumbnail],
@@ -46,6 +44,7 @@ export async function POST(request) {
   });
   // console.log(lineItems[0]);
   try {
+    // console.log(lineItems);
     const stripeSession = await stripe.checkout.sessions.create({
       line_items: lineItems,
       mode: "payment",

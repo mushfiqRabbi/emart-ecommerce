@@ -34,6 +34,13 @@ export default function SignUpForm({ tab, setTab }) {
     }
   };
 
+  const handIconClick = (e) => {
+    e.preventDefault();
+    toast("Feature coming soon!", {
+      icon: "🧩",
+    });
+  };
+
   return (
     <div
       className={`tab-pane fade show ${tab === "register" ? "active" : ""}`}
@@ -44,16 +51,32 @@ export default function SignUpForm({ tab, setTab }) {
       <form action={handleSubmit(handleRegisterUser)}>
         <div className="text-center mb-3">
           <p>Sign up with:</p>
-          <button type="button" className="btn btn-link btn-floating mx-1">
+          <button
+            type="button"
+            className="btn btn-link btn-floating mx-1"
+            onClick={handIconClick}
+          >
             <i className="fab fa-facebook-f" />
           </button>
-          <button type="button" className="btn btn-link btn-floating mx-1">
+          <button
+            type="button"
+            className="btn btn-link btn-floating mx-1"
+            onClick={handIconClick}
+          >
             <i className="fab fa-google" />
           </button>
-          <button type="button" className="btn btn-link btn-floating mx-1">
+          <button
+            type="button"
+            className="btn btn-link btn-floating mx-1"
+            onClick={handIconClick}
+          >
             <i className="fab fa-twitter" />
           </button>
-          <button type="button" className="btn btn-link btn-floating mx-1">
+          <button
+            type="button"
+            className="btn btn-link btn-floating mx-1"
+            onClick={handIconClick}
+          >
             <i className="fab fa-github" />
           </button>
         </div>

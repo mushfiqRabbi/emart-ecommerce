@@ -17,11 +17,19 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import SignOutButton from "../components/SignOutButton";
 import { createPortal } from "react-dom";
+import { toast } from "react-hot-toast";
 
 export default function RootLayoutHeader() {
   const hitsContainer = useRef(null);
   const { data: session, status } = useSession();
   const [search, setSearch] = useState("");
+
+  const handleWishListClick = (e) => {
+    e.preventDefault();
+    toast("Feature coming soon!", {
+      icon: "🧩",
+    });
+  };
   return (
     <header>
       {/* Jumbotron */}
@@ -50,14 +58,15 @@ export default function RootLayoutHeader() {
                 )}
 
                 {status !== "loading" && session && <SignOutButton />}
-                <Link
-                  href="/wishlist"
-                  className="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center "
+                <button
+                  className="bg-white me-1 border rounded py-1 px-3 nav-link d-flex align-items-center "
+                  onClick={handleWishListClick}
+                  // disabled
                 >
                   {" "}
                   <i className="fas fa-heart m-1 me-md-2" />
                   <p className="d-none d-md-block mb-0">Wishlist</p>{" "}
-                </Link>
+                </button>
                 <Link
                   href="/cart"
                   className="border rounded py-1 px-3 nav-link d-flex align-items-center"
