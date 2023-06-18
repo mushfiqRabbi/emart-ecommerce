@@ -49,9 +49,10 @@ export default function SignInSignUp() {
                 </a>
               </li>
             </ul>
+            {/* <hr /> */}
             {/* Pills navs */}
             {/* Pills content */}
-            <div className="tab-content">
+            <div className="tab-content card p-5 shadow-5">
               <SignInForm tab={tab} setTab={setTab} />
 
               <SignUpForm tab={tab} setTab={setTab} />

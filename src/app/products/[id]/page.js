@@ -216,27 +216,29 @@ export default function Product({ params }) {
                         </div>
                       </div>
                     </div>
-                    <button
-                      className="btn btn-warning shadow-0"
-                      onClick={handleBuy}
-                    >
-                      {" "}
-                      Buy now{" "}
-                    </button>
-                    <button
-                      className="btn btn-primary shadow-0"
-                      onClick={handleAddToCart}
-                    >
-                      {" "}
-                      <i className="me-1 fa fa-shopping-basket" /> Add to cart{" "}
-                    </button>
-                    <button
-                      className="btn btn-light border border-secondary py-2 icon-hover px-3"
-                      onClick={handleAddToWishList}
-                    >
-                      {" "}
-                      <i className="me-1 fa fa-heart fa-lg" /> Save{" "}
-                    </button>
+                    <div className="d-flex gap-2">
+                      <button
+                        className="btn btn-warning shadow-0"
+                        onClick={handleBuy}
+                      >
+                        {" "}
+                        Buy now{" "}
+                      </button>
+                      <button
+                        className="btn btn-primary shadow-0"
+                        onClick={handleAddToCart}
+                      >
+                        {" "}
+                        <i className="me-1 fa fa-shopping-basket" /> Add to cart{" "}
+                      </button>
+                      <button
+                        className="btn btn-light border border-secondary py-2 icon-hover px-3"
+                        onClick={handleAddToWishList}
+                      >
+                        {" "}
+                        <i className="me-1 fa fa-heart fa-lg" /> Save{" "}
+                      </button>
+                    </div>
                   </div>
                 </main>
               </div>

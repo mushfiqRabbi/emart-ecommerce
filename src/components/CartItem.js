@@ -67,7 +67,7 @@ export default function CartItem({ item }) {
       <div className="col-lg col-sm-6 d-flex justify-content-sm-center justify-content-md-start justify-content-lg-center justify-content-xl-end mb-2">
         <div className="float-md-end">
           <button
-            className="btn btn-light border px-2 icon-hover-primary"
+            className="btn btn-light border px-2 icon-hover-primary me-2"
             onClick={handleAddToWishList}
           >
             <i className="fas fa-heart fa-lg px-1 text-secondary" />

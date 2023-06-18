@@ -49,7 +49,7 @@ export default function SignUpForm({ tab, setTab }) {
       aria-labelledby="tab-register"
     >
       <form action={handleSubmit(handleRegisterUser)}>
-        <div className="text-center mb-3">
+        {/* <div className="text-center mb-3">
           <p>Sign up with:</p>
           <button
             type="button"
@@ -79,8 +79,8 @@ export default function SignUpForm({ tab, setTab }) {
           >
             <i className="fab fa-github" />
           </button>
-        </div>
-        <p className="text-center">or:</p>
+        </div> */}
+        <h1 className="text-center text-primary mb-5">Register</h1>
         {/* Name input */}
         <div className="form-outline mb-4">
           <MDBInput

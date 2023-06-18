@@ -57,7 +57,7 @@ export default function SignInForm({ tab, setTab }) {
       aria-labelledby="tab-login"
     >
       <form onSubmit={handleSubmit(handleLoginUser)}>
-        <div className="text-center mb-3">
+        {/* <div className="text-center mb-3">
           <p>Sign in with:</p>
           <button
             type="button"
@@ -87,8 +87,8 @@ export default function SignInForm({ tab, setTab }) {
           >
             <i className="fab fa-github" />
           </button>
-        </div>
-        <p className="text-center">or:</p>
+        </div> */}
+        <h1 className="text-center mb-5 text-primary">Login</h1>
         {/* Email input */}
         <div className="form-outline mb-4">
           <MDBInput
