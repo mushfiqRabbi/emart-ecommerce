@@ -76,4 +76,4 @@ To get started with eMart, follow the steps below:
 
 ## License
 
-eMart is licensed under the [MIT License](LICENSE
+eMart is licensed under the [MIT License](LICENSE)
