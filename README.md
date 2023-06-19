@@ -27,6 +27,7 @@ Welcome to the GitHub repository for eMart, an E-Commerce Website project built 
 Here are some screenshots and GIFs of the eMart E-Commerce Website:
 
 ![Demo](/screenshots//ezgif-4-eaf3777a33.gif)
+
 _Navigating through the website._
 
 <!-- ![Home Page](/screenshots/screencapture-mshop-seven-vercel-app-2023-06-19-06_07_02.png)
