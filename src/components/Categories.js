@@ -12,6 +12,9 @@ export default function Categories() {
     <>
       <section>
         <div className="container pt-5">
+          <header className="mb-4">
+            <h3>Categories</h3>
+          </header>
           <nav className="row gy-4">
             {productsLoading && (
               <Skeleton.SkeletonThemeProvider>
