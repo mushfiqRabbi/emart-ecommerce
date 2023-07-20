@@ -5,7 +5,6 @@ import { useProducts } from "../contexts/ProductsContext";
 import { Skeleton } from "react-skeleton-generator";
 import "./Intro.css";
 import Image from "next/image";
-import { useRef } from "react";
 import { useMediaQuery } from "react-responsive";
 
 import { Navigation, Pagination, A11y, Autoplay } from "swiper/modules";
@@ -22,12 +21,6 @@ import Link from "next/link";
 export default function Intro() {
   const { productsLoading, products } = useProducts();
   console.log(products);
-  const progressCircle = useRef(null);
-  const progressContent = useRef(null);
-  const onAutoplayTimeLeft = (s, time, progress) => {
-    progressCircle.current.style.setProperty("--progress", 1 - progress);
-    progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
-  };
 
   const isTablet = useMediaQuery({
     query: "(max-width: 766px)",
@@ -59,9 +52,8 @@ export default function Intro() {
             modules={[Navigation, Pagination, A11y, Autoplay]}
             autoplay={{
               delay: 2500,
-              disableOnInteraction: true,
+              disableOnInteraction: false,
             }}
-            onAutoplayTimeLeft={onAutoplayTimeLeft}
             // navigation
             pagination={{ clickable: true }}
             slidesPerView={isMobile ? 1 : isTablet ? 2 : 3}
@@ -101,12 +93,6 @@ export default function Intro() {
                 </SwiperSlide>
               );
             })}
-            <div className="autoplay-progress" slot="container-end">
-              <svg viewBox="0 0 48 48" ref={progressCircle}>
-                <circle cx="24" cy="24" r="20"></circle>
-              </svg>
-              <span ref={progressContent}></span>
-            </div>
           </Swiper>
         )}
       </div>

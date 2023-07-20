@@ -67,10 +67,15 @@ export default function NewProducts() {
                         />
                       </Link>
                       <div className="card-body d-flex flex-column">
-                        <h5 className="card-title">
-                          GoPro HERO6 4K Action Camera - Black
-                        </h5>
-                        <p className="card-text">$790.50</p>
+                        <h5 className="card-title">{product?.title}</h5>
+                        <p
+                          className="card-text"
+                          style={{
+                            fontWeight: "bold",
+                          }}
+                        >
+                          ${product.price}
+                        </p>
                         <div className="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
                           <button
                             className="btn btn-primary shadow-0 me-1"
