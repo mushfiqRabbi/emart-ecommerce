@@ -9,14 +9,12 @@ module.exports = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "i.dummyjson.com",
-        port: "",
-        pathname: "/data/products/**",
+        hostname: "cdn.dummyjson.com",
+        pathname: "/product-images/**",
       },
       {
         protocol: "https",
         hostname: "mdbootstrap.com",
-        port: "",
         pathname: "/img/logo/mdb-transaprent-noshadows.png",
       },
     ],
