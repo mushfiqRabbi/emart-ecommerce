@@ -28,7 +28,7 @@ export default function Hits({ setSearch }) {
         return (
           <div
             key={product.id}
-            className="list-group-item list-group-item-action border-0 ripple row d-flex align-items-center"
+            className="border-0 list-group-item list-group-item-action ripple row d-flex align-items-center"
             // aria-current="true"
             style={{
               borderRadius: "0",
@@ -40,7 +40,7 @@ export default function Hits({ setSearch }) {
             onClick={handleClick.bind(product.id)}
           >
             <Image
-              src={product?.thumbnail}
+              src={`https://cdn.dummyjson.com/product-images/${product?.id}/thumbnail.jpg`}
               alt={product?.title}
               width={70}
               height={80}
