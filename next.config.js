@@ -16,7 +16,7 @@ module.exports = {
       {
         protocol: "https",
         hostname: "cdn.dummyjson.com",
-        pathname: "/product-images/**",
+        pathname: "/**",
       },
       {
         protocol: "https",
