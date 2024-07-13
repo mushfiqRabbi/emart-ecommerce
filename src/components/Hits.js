@@ -40,7 +40,7 @@ export default function Hits({ setSearch }) {
             onClick={handleClick.bind(product.id)}
           >
             <Image
-              src={`https://cdn.dummyjson.com/product-images/${product?.id}/thumbnail.jpg`}
+              src={product.thumbnail}
               alt={product?.title}
               width={70}
               height={80}
