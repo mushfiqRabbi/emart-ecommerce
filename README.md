@@ -59,7 +59,7 @@ Check out the live demo of eMart at: [eMart Live Demo](https://mshop-seven.verce
 
 To get started with eMart, follow the steps below:
 
-1. Clone the repository: `git clone https://github.com/your-username/emart.git`
+1. Clone the repository: `git clone https://github.com/mushfiqRabbi/emart.git`
 2. Install dependencies: `npm install`
 3. Set up the environment variables:
 
